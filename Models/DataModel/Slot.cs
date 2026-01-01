@@ -7,6 +7,8 @@ namespace ResoniteLink
 {
     public class Slot : Worker
     {
+        public const string ROOT_SLOT_ID = "Root";
+
         #region FIELDS
 
         [JsonPropertyName("parent")]
