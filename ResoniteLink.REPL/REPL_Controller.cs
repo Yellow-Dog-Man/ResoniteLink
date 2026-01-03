@@ -131,6 +131,10 @@ namespace ResoniteLink
 
                     break;
 
+                case "removeslot":
+                    await RemoveCurrentSlot();
+                    break;
+
                 case "selectparent":
                     if(CurrentSlot.Parent.TargetID == null)
                     {
@@ -207,6 +211,23 @@ namespace ResoniteLink
                 Console.WriteLine($"Failed to add child: " + result.ErrorInfo);
                 return null;
             }
+        }
+
+        async Task RemoveCurrentSlot()
+        {
+            var result = await _link.RemoveSlot(new RemoveSlot()
+            {
+                SlotID = CurrentSlot.ID,
+            });
+
+            if(!result.Success)
+            {
+                Console.WriteLine($"Failed to remove slot: {result.ErrorInfo}");
+                return;
+            }
+
+            // Select the parent
+            await SelectSlot(CurrentSlot.Parent.ID);
         }
     }
 }
