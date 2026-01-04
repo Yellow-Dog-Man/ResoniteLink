@@ -335,7 +335,7 @@ namespace ResoniteLink
                     break;
 
                 case Reference reference:
-                    Console.Write($"Reference Target (type: {reference.TargetType}): ");
+                    Console.Write($"Target ({reference.TargetType}): ");
 
                     if (reference.TargetID == null)
                         Console.WriteLine("null");
