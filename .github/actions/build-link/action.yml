@@ -15,6 +15,10 @@ inputs:
     description: 'Folder to output nugets in'
     required: false
     default: 'nupkgs'
+  projectdir:
+    description: 'Directory of the project to build'
+    default: 'ResoniteLink'
+    required: false
 
 runs:
   using: composite
@@ -26,4 +30,4 @@ runs:
 
     - name: 'Build library'
       shell: bash
-      run: dotnet pack --output nupkgs -c Release ${{ inputs.additional-args }}
+      run: dotnet pack ${{ inputs.projectdir }} --output nupkgs -c Release ${{ inputs.additional-args }}
