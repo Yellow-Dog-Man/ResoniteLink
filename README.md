@@ -1,7 +1,7 @@
 # ⚠️ Beta WARNING! ⚠️
 Currently this library is in "beta" state. It's just been recently released and we're seeking for feedback on the protocol and are still open to significant breaking changes.
 
-As such, please take care when building with this protocol in this stage and be prepared for changes (e.g. changes to schema, naming things, structure and such).
+As such, please take care when building with this protocol in this stage and be prepared for potential significant breaking changes (e.g. changes to schema, naming things, structure and such).
 
 This stage won't likely run long. Once we're happy that we got some feedback, we'll remove the label and will be a lot more hesitant to introduce breaking changes, providing more stability.
 
