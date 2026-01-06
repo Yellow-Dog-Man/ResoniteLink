@@ -28,7 +28,7 @@ jobs:
 
       - name: 'Publish ResoniteLink'
         uses: ./.github/actions/publish-link
-        if: ${{ github.event == 'release' }}
+        if: ${{ github.event == 'release' && github.event.action == 'published' }}
         with:
           out-folder: ${{ steps.get-folder.outputs.out-folder }}
           additional-args: '-p:Version=${{ github.ref_name }}'
