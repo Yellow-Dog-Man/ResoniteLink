@@ -1,0 +1,44 @@
+name: 'Generate docs & publish site'
+
+on:
+  push:
+
+permissions:
+  actions: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+jobs:
+  publish-docs:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: 'Checkout  repository'
+        uses: actions/checkout@v6
+
+      - name: 'Dotnet Setup'
+        uses: actions/setup-dotnet@v5
+        with:
+          dotnet-version: 10.x
+
+      - name: 'Install docfx'
+        run: dotnet tool update -g docfx
+
+      - name: 'Generate docfx documentation'
+        working-directory: ${{ github.workspace }}/docs
+        run: docfx docfx.json
+
+      - name: 'Upload artifact'
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: '${{ github.workspace }}/docs/_site'
+
+      - name: 'Deploy to GitHub Pages'
+        id: deployment
+        uses: actions/deploy-pages@v4
