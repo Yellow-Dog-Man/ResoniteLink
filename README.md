@@ -6,12 +6,12 @@ As such, please take care when building with this protocol in this stage and be 
 This stage won't likely run long. Once we're happy that we got some feedback, we'll remove the label and will be a lot more hesitant to introduce breaking changes, providing more stability.
 
 # Nuget Package
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT) [![NuGet](https://img.shields.io/nuget/v/YellowDogMan.ResoniteLink.svg)](https://www.nuget.org/packages/YellowDogMan.ResoniteLink)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT) [![NuGet](https://img.shields.io/nuget/v/YellowDogMan.ResoniteLink.svg)](https://www.nuget.org/packages/YellowDogMan.ResoniteLink) [![GitHub deployments](https://img.shields.io/github/deployments/Yellow-Dog-Man/ResoniteLink/github-pages?style=flat&label=Documentation)](https://yellow-dog-man.github.io/ResoniteLink/)
 
 # What is Resonite?
 Resonite is a social VR sandbox where you can build anything in-game, realtime and with realtime collabration and implicit network synchronization. It is like being inside a virtual universe / game-engine that you have control over and that you can build together with your friends or colleagues.
 
-Everything in Resonite is built around a shared data model - from the overall scene hierarchy, components to the individual fields - everything is accessible, modifiable and scriptable, giving users unprecedent level of control.
+Everything in Resonite is built around a shared data model - from the overall scene hierarchy, components to the individual fields - everything is accessible, modifiable and scriptable, giving users unprecedented level of control.
 
 You can get Resonite completely for free on Steam here: https://store.steampowered.com/app/2519830/Resonite/
 
@@ -20,7 +20,7 @@ While Resonite has a heavy focus on building things in-game, interoperability wi
 
 The protocol closely follow's Resonite's data model and deconstructs it into primitive JSON types which can be used from nearly any programming language. With this, you can integrate Resonite worlds with any tool you can imagine. 
 
-## Usecase examples
+## Use case examples
 - Unity/Unreal/Godot/Blender... SDK
     - You can bring existing content from those tools into Resonite easily
     - They will also allow integrating Resonite with other tools as part of your workflow
