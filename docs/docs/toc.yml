@@ -1,6 +1,6 @@
 - name: Getting Started
   href: started.md
-- name: Manipulating Slots
-  href: slots.md
-- name: Using Components
-  href: components.md
+- name: WebSocket API
+  items:
+    - href: websocket/components.md
+    - href: websocket/slots.md
