@@ -1,0 +1,48 @@
+{
+  "$schema": "https://raw.githubusercontent.com/dotnet/docfx/main/schemas/docfx.schema.json",
+  "metadata": [
+    {
+      "src": [
+        {
+          "src": "../ResoniteLink",
+          "files": [
+            "ResoniteLink.csproj"
+          ]
+        }
+      ],
+      "dest": "api"
+    }
+  ],
+  "build": {
+    "content": [
+      {
+        "files": [
+          "**/*.{md,yml}"
+        ],
+        "exclude": [
+          "_site/**"
+        ]
+      }
+    ],
+    "resource": [
+      {
+        "files": [
+          "images/**"
+        ]
+      }
+    ],
+    "output": "_site",
+    "template": [
+      "default",
+      "modern"
+    ],
+    "globalMetadata": {
+      "_appName": "ResoniteLink Documentation",
+      "_appTitle": "ResoniteLink Documentation",
+      "_enableSearch": true,
+      "pdf": false,
+      "baseUrl": "https://yellow-dog-man.github.io/ResoniteLink/",
+      "_appFooter": "Copyright &copy Yellow Dog Man Studios S.R.O & Contributors"
+    }
+  }
+}
