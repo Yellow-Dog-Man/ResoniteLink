@@ -43,9 +43,6 @@ Building in-game is still our primary focus. Any content you bring into Resonite
 
 This is meant to enhance the interoperability and open new workflows, but not replace any of them.
 
-## Why the name "ResoniteLink"?
-We were considering "cool" unique names. However, we ended up following similar philosophy to naming "ResonitePackage" - we want this tool to be recognizable as Resonite-related tool/protocol at first sight and a "cool name" would obscure that fact.
-
 # What is purpose of this repository?
 There are two core purposes of this repository:
 

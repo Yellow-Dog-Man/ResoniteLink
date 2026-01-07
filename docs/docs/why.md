@@ -18,3 +18,5 @@ Resonite has a highly creative and skilled community, which has been building ou
 
 By creating this protocol and making the client implementation open, we want to make it easy to build with it and open up even more possibilities and workflows than before. Making this open removes a lot of the friction that's normally associated with decompiling and reverse engineering parts of the engine.
 
+## Why the name "ResoniteLink"?
+We were considering "cool" unique names. However, we ended up following similar philosophy to naming "ResonitePackage" - we want this tool to be recognizable as Resonite-related tool/protocol at first sight and a "cool name" would obscure that fact.
