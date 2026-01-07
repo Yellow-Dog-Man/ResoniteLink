@@ -43,6 +43,21 @@ Building in-game is still our primary focus. Any content you bring into Resonite
 
 This is meant to enhance the interoperability and open new workflows, but not replace any of them.
 
+## What is this NOT?
+ResoniteLink opens up a lot of new possibilities. However there are certain use-cases that it's not designed for:
+
+- Realtime control / simulation of in-game objects
+    - While it's generally fast and let's you pipe in continuous updates to things, it does not provide mechanisms to synchronize with game updates - any reads/writes happen "eventually"
+    - Updating lots of objects in realtime is better done with in-game mechanisms and scripting, providing smoother results and better efficiency
+    - Using in-game OSC / WebSocket mechanisms can be more efficient method to control data in realtime
+    - The JSON serialization & structure of the models is designed for ease of implementation and integration, not maximum performance
+- Access to session control data model / streams
+    - This provides you with access to the data model representing the world itself, but currently not any other parts of the data model
+    - Some of this might change in the future, but not likely
+- Replacement for in-game scripting
+    - While you can use this to control in-game objects with external scripts, it's still recommended to use ProtoFlux where possible
+    - Using this to control things requires running an external program and to be the host of the session
+
 # What is purpose of this repository?
 There are two core purposes of this repository:
 
