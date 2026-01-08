@@ -571,6 +571,33 @@ namespace ResoniteLink
 
         
         
+        public class Field_Uri : Field
+        {
+            [JsonPropertyName("value")]
+            public Uri Value { get; set; }
+
+            [JsonIgnore]
+            public override object BoxedValue { get => Value; set => Value = (Uri)value; }
+
+            [JsonIgnore]
+            public override Type ValueType => typeof(Uri);
+        }
+
+        public class Array_Uri : SyncArray
+        {
+            [JsonPropertyName("values")]
+            public List<Uri> Values { get; set; }
+
+            [JsonIgnore]
+            public override Type ElementType => typeof(Uri);
+        }
+
+        [JsonDerivedType(typeof(Field_Uri), "Uri")]
+        [JsonDerivedType(typeof(Array_Uri), "Uri[]")]
+        public partial class Member { }
+
+        
+        
         public class Field_color : Field
         {
             [JsonPropertyName("value")]

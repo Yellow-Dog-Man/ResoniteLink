@@ -11,7 +11,8 @@
 <#
 HashSet<string> nonNullableTypes = new HashSet<string>()
 {
-    "string"
+    "string",
+    "Uri",
 };
 
 List<string> standaloneTypes = new List<string>
@@ -35,6 +36,7 @@ List<string> standaloneTypes = new List<string>
 
     "char",
     "string",
+    "Uri",
 
     "color",
     "colorX",
