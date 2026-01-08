@@ -20,20 +20,17 @@ jobs:
       - name: 'Checkout repository'
         uses: actions/checkout@v6
 
-      - name: 'Get folder for nugets'
-        id: get-folder
-        run: echo "out-folder=$(pwd)/nupkgs" >> $GITHUB_OUTPUT
-
       - name: 'Build ResoniteLink'
         if: ${{ github.event_name != 'release' }}
-        uses: ./.github/actions/build-link
+        uses: Yellow-Dog-Man/composite-actions-templates/.github/actions/dotnet-build@main
         with:
-          out-folder: ${{ steps.get-folder.outputs.out-folder }}
+          dotnet-build-type: 'pack'
+          dotnet-project-path: 'ResoniteLink'
 
       - name: 'Publish ResoniteLink'
-        uses: ./.github/actions/publish-link
+        uses: Yellow-Dog-Man/composite-actions-templates/.github/actions/dotnet-build-push-nuget/@main
         if: ${{ github.event_name == 'release' && github.event.action == 'published' }}
         with:
-          out-folder: ${{ steps.get-folder.outputs.out-folder }}
-          additional-args: '-p:Version=${{ github.ref_name }}'
-          nuget-token: ${{ secrets.NUGET_TOKEN }}
+          dotnet-nuget-auth-token: ${{ secrets.NUGET_TOKEN }}
+          dotnet-build-args: '-p:Version=${{ github.ref_name }}'
+          dotnet-project-path: 'ResoniteLink'
