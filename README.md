@@ -137,8 +137,8 @@ You can add new slots! This is a bit more involved, as you need to specify more 
         "id" : "MySDK_0",
         "parent" : {
             "$type" : "reference",
-            "targetId" : "Root",
-        }
+            "targetId" : "Root"
+        },
         "name" : {
             "$type" : "string",
             "value" : "Hello from MySDK!"
