@@ -1,3 +1,5 @@
+name: 'Build and optionally publish ResoniteLink'
+
 on:
   push:
   pull_request:
@@ -9,12 +11,13 @@ on:
     types:
       - published
 
-name: 'Build and optionally publish ResoniteLink'
-
 jobs:
-  build-publish:
+  build-publish-resonitelink:
     name: 'Build and publish library'
     runs-on: ubuntu-latest
+
+    env:
+      PROJECT_PATH: 'ResoniteLink'
 
     steps:
       - name: 'Checkout repository'
@@ -25,12 +28,46 @@ jobs:
         uses: Yellow-Dog-Man/composite-actions-templates/.github/actions/dotnet-build@main
         with:
           dotnet-build-type: 'pack'
-          dotnet-project-path: 'ResoniteLink'
+          dotnet-project-path: '${{ env.PROJECT_PATH }}'
 
       - name: 'Publish ResoniteLink'
-        uses: Yellow-Dog-Man/composite-actions-templates/.github/actions/dotnet-build-push-nuget/@main
         if: ${{ github.event_name == 'release' && github.event.action == 'published' }}
+        uses: Yellow-Dog-Man/composite-actions-templates/.github/actions/dotnet-build-push-nuget/@main
         with:
           dotnet-nuget-auth-token: ${{ secrets.NUGET_TOKEN }}
           dotnet-build-args: '-p:Version=${{ github.ref_name }}'
-          dotnet-project-path: 'ResoniteLink'
+          dotnet-project-path: '${{ env.PROJECT_PATH }}'
+
+  build-publish-REPL:
+    name: 'Build and optionally publish the ResoniteLink reference CLI, REPL'
+    runs-on: ubuntu-latest
+
+    env:
+      PROJECT_PATH: 'ResoniteLink.REPL'
+
+    steps:
+      - name: 'Checkout repository'
+        uses: actions/checkout@v6
+
+      - name: 'Build REPL'
+        if: ${{ github.event_name != 'release' }}
+        uses: Yellow-Dog-Man/composite-actions-templates/.github/actions/dotnet-build@main
+        with:
+          dotnet-project-path: '${{ env.PROJECT_PATH }}'
+
+      - name: 'Build REPL for release'
+        if: ${{ github.event_name == 'release' && github.event.action == 'published' }}
+        uses: Yellow-Dog-Man/composite-actions-templates/.github/actions/dotnet-build@main
+        with:
+          dotnet-project-path: '${{ env.PROJECT_PATH }}'
+          dotnet-build-args: '-p:Version=${{ github.ref_name }} -o ${{ github.workspace }}/repl'
+
+      - name: 'Package REPL for release'
+        if: ${{ github.event_name == 'release' && github.event.action == 'published' }}
+        run: zip -r repl.zip ${{ env.PROJECT_PATH }}/*
+
+      - name: 'Attach REPL package to release'
+        if: ${{ github.event_name == 'release' && github.event.action == 'published' }}
+        uses: softprops/action-gh-release@v2
+        with:
+          files: 'repl.zip'
