@@ -6,76 +6,7 @@ The repository for ResoniteLink has several GitHub Actions workflows that are di
 
 ## Composite Actions
 
-A composite Action is a reusable bit of workflow that you can use as a step.
-
-They are useful in case there are repeated steps over multiple workflows, for instance, publishing ResoniteLink will
-need for it to be built, so the composite action can be used to avoid copy-pasting steps.
-
-Composite Actions generally need to inherit the inputs of the other composite Actions used.
-
-### build-link
-
-This Action builds ResoniteLink and outputs the NuGet package to the `nupkgs` directory in `github.workspace`.
-
-#### Used actions
-
-- `actions/setup-dotnet@v5`
-
-#### Inputs
-
-| Name              | Description                                        | Default        | Required |
-|-------------------|----------------------------------------------------|----------------|----------|
-| `dotnet-version`  | Version of .NET to install for the build process.  | `10.0.x`       | false    |
-| `additional-args` | Additional arguments to pass to the build command. |                | false    |
-| `out-folder`      | Output folder for the built files.                 | `nupkgs`       | false    |
-| `projectdir`      | Directory of the project to build.                 | `ResoniteLink` | false    |
-
-#### Outputs
-
-None.
-
-#### Sample usage
-
-```yaml
-  - name: 'Build ResoniteLink'
-    uses: ./.github/actions/build-link
-    with:
-      out-folder: '${{ github.workspace }}/myoutfolder'
-```
-
-### publish-link
-
-This Action publishes ResoniteLink to the official NuGet repository.
-
-#### Used actions
-
-- `./.github/actions/build-link`
-
-#### Inputs
-
-| Name              | Description                                        | Default                               | Required |
-|-------------------|----------------------------------------------------|---------------------------------------|----------|
-| `dotnet-version`  | Version of .NET to install for the build process.  | `10.0.x`                              | false    |
-| `additional-args` | Additional arguments to pass to the build command. |                                       | false    |
-| `out-folder`      | Output folder for the built files.                 | `nupkgs`                              | false    |
-| `projectdir`      | Directory of the project to build.                 | `ResoniteLink`                        | false    |
-| `nuget-token`     | Token to authenticate against the NuGet registry.  |                                       | true     |
-| `nuget-url`       | URL towards the NuGet registry.                    | `https://api.nuget.org/v3/index.json` | false    |
-
-#### Outputs
-
-None.
-
-#### Sample usage
-
-```yaml
-      - name: 'Publish ResoniteLink'
-        uses: ./.github/actions/publish-link
-        with:
-          out-folder: ${{ steps.get-folder.outputs.out-folder }}
-          additional-args: '-p:Version=${{ github.ref_name }}'
-          nuget-token: ${{ secrets.NUGET_TOKEN }}
-```
+For the Composite Actions used within this repository, please go to [Yellow-Dog-Man/composite-actions-templates](https://github.com/Yellow-Dog-Man/composite-actions-templates).
 
 ## Workflows
 
@@ -84,6 +15,8 @@ Workflows are what's executing and building all the steps, and most importantly,
 ### build-publish
 
 In charge of building and publishing ResoniteLink when needed.
+
+It also builds a release version of REPL and attaches to the latest tag.
 
 #### Triggers
 
@@ -94,8 +27,9 @@ In charge of building and publishing ResoniteLink when needed.
 #### Actions used
 
 - `actions/checkout@v6`
-- `./.github/actions/build-link`
-- `./.github/actions/publish-link`
+- `Yellow-Dog-Man/composite-actions-templates/.github/actions/dotnet-build@main`
+- `Yellow-Dog-Man/composite-actions-templates/.github/actions/dotnet-build@main`
+- `softprops/action-gh-release@v2`
 
 ### docs-generation
 
