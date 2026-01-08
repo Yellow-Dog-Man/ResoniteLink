@@ -8,11 +8,9 @@ on:
       - synchronize
       - reopened
 
-env:
-  GITLEAKS_LICENSE: ${{ secrets.GITLEAKS_LICENSE }}
-
 jobs:
   secret-detection:
     uses: Yellow-Dog-Man/composite-actions-templates/.github/workflows/secret-detection.yml@main
+    secrets: inherit
     permissions:
       contents: read
