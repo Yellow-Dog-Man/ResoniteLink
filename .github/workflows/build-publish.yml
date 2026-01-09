@@ -21,6 +21,7 @@ jobs:
 
     env:
       PROJECT_PATH: 'ResoniteLink'
+      BUILD_TYPE: 'pack'
 
     steps:
       - name: 'Checkout repository'
@@ -30,16 +31,22 @@ jobs:
         if: ${{ env.IS_RELEASE == 'false' }}
         uses: Yellow-Dog-Man/composite-actions-templates/.github/actions/dotnet-build@main
         with:
-          dotnet-build-type: 'pack'
+          dotnet-build-type: '${{ env.BUILD_TYPE }}'
           dotnet-project-path: '${{ env.PROJECT_PATH }}'
+
+      - name: 'Build release of ResoniteLink'
+        if: ${{ env.IS_RELEASE == 'true' }}
+        uses: Yellow-Dog-Man/composite-actions-templates/.github/actions/dotnet-build@main
+        with:
+          dotnet-build-type: '${{ env.BUILD_TYPE }}'
+          dotnet-build-args: '-p:Version=${{ github.ref_name }} -o ${{ github.workspace }}/nupkgs'
 
       - name: 'Publish ResoniteLink'
         if: ${{ env.IS_RELEASE == 'true' }}
-        uses: Yellow-Dog-Man/composite-actions-templates/.github/actions/dotnet-build-push-nuget/@main
+        uses: Yellow-Dog-Man/composite-actions-templates/.github/actions/dotnet-build-push-nuget@main
         with:
-          dotnet-nuget-auth-token: ${{ secrets.NUGET_TOKEN }}
-          dotnet-build-args: '-p:Version=${{ github.ref_name }}'
-          dotnet-project-path: '${{ env.PROJECT_PATH }}'
+          dotnet-nuget-auth-token: '${{ secrets.NUGET_TOKEN }}'
+          dotnet-nuget-out-path: '${{ github.workspace }}/nupkgs'
 
   build-publish-REPL:
     name: 'Build and optionally publish the ResoniteLink reference CLI, REPL'
@@ -67,7 +74,7 @@ jobs:
 
       - name: 'Package REPL for release'
         if: ${{ env.IS_RELEASE == 'true' }}
-        run: zip -r repl.zip ${{ env.PROJECT_PATH }}/*
+        run: zip -r repl.zip ${{ github.workspace }}/repl/*
 
       - name: 'Attach REPL package to release'
         if: ${{ env.IS_RELEASE == 'true' }}
