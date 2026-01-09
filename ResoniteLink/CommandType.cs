@@ -30,6 +30,10 @@ namespace ResoniteLink
         /// </summary>
         Exit,
         /// <summary>
+        /// `importTexture` - Imports a texture to the current slot
+        /// </summary>
+        ImportTexture,
+        /// <summary>
         /// `listChildren` - Lists child slots of the current slot
         /// </summary>
         ListChildren,

@@ -76,6 +76,7 @@ namespace ResoniteLink.Tests.REPL
         [InlineData("componentState", CommandType.ComponentState, "")]
         [InlineData("echo Hello, World!", CommandType.Echo, "Hello, World!")]
         [InlineData("exit", CommandType.Exit, "")]
+        [InlineData("importTexture /path/to/texture.png", CommandType.ImportTexture, "/path/to/texture.png")]
         [InlineData("listChildren", CommandType.ListChildren, "")]
         [InlineData("listComponents", CommandType.ListComponents, "")]
         [InlineData("removeComponent", CommandType.RemoveComponent, "")]
