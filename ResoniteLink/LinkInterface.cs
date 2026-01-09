@@ -29,7 +29,8 @@ namespace ResoniteLink
             _options = new JsonSerializerOptions()
             {
                 // Necessary for values like Infinity, NaN and so on
-                NumberHandling = System.Text.Json.Serialization.JsonNumberHandling.AllowNamedFloatingPointLiterals
+                NumberHandling = System.Text.Json.Serialization.JsonNumberHandling.AllowNamedFloatingPointLiterals,
+                AllowOutOfOrderMetadataProperties = true,
             };
         }
 
