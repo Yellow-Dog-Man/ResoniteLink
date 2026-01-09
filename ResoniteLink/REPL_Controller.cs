@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 
 namespace ResoniteLink
 {
-    
     public class REPL_Controller
     {
         readonly LinkInterface _link;
