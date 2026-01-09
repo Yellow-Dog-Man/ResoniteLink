@@ -2,8 +2,25 @@
 
 namespace ResoniteLink.Tests.ResoniteLink
 {
-    public class CommandParserTests
+    public class CommandParserTests : IDisposable
     {
+        private readonly TextReader _originalIn;
+        private readonly TextWriter _originalOut;
+
+        public CommandParserTests()
+        {
+            // Preserve original console streams
+            _originalIn = Console.In;
+            _originalOut = Console.Out;
+        }
+
+        public void Dispose()
+        {
+            // Restore original console streams
+            Console.SetIn(_originalIn);
+            Console.SetOut(_originalOut);
+        }
+
         [Theory]
         [InlineData("addChild ChildSlot", CommandType.AddChild, "ChildSlot")]
         [InlineData("addComponent MeshRenderer", CommandType.AddComponent, "MeshRenderer")]
