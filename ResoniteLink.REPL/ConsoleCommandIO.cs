@@ -30,6 +30,45 @@ namespace ResoniteLink.REPL
             Console.ForegroundColor = prevColor;
         }
 
-        public async Task<string> ReadCommand() => Console.ReadLine();
+        public async Task<(CommandType, string)> ReadCommand()
+        {
+            var input = Console.ReadLine();
+
+            if (string.IsNullOrWhiteSpace(input))
+                    return (CommandType.Unknown, string.Empty);
+
+            SplitCommand(input, out var keyword, out var arguments);
+
+            try
+            {
+                // Parse the command from the input string, ignoring case
+                CommandType commandType = Enum.Parse<CommandType>(keyword, true);
+                return (commandType, arguments ?? string.Empty);
+
+            }
+            catch
+            {
+                await PrintError($"Unknown command: {keyword}");
+            }
+            return (CommandType.Unknown, string.Empty);
+        }
+
+        public void SplitCommand(string command, out string keyword, out string? arguments)
+        {
+            command = command.Trim();
+
+            var spaceIndex = command.IndexOf(' ');
+
+            if (spaceIndex < 0)
+            {
+                keyword = command;
+                arguments = null;
+            }
+            else
+            {
+                keyword = command.Substring(0, spaceIndex);
+                arguments = command.Substring(spaceIndex + 1).Trim();
+            }
+        }
     }
 }
