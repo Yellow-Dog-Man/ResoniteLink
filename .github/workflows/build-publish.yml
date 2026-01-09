@@ -60,7 +60,7 @@ jobs:
         uses: actions/checkout@v6
 
       - name: 'Build REPL'
-        if: ${{ !env.IS_RELEASE == 'false' }}
+        if: ${{ env.IS_RELEASE == 'false' }}
         uses: Yellow-Dog-Man/composite-actions-templates/.github/actions/dotnet-build@main
         with:
           dotnet-project-path: '${{ env.PROJECT_PATH }}'
