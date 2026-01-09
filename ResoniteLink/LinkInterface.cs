@@ -128,6 +128,13 @@ namespace ResoniteLink
             await _client.SendAsync(new ArraySegment<byte>(jsonData), 
                 WebSocketMessageType.Text, true, System.Threading.CancellationToken.None);
 
+            if(message is BinaryPayloadMessage binaryPayload)
+            {
+                // We must send the binary payload as well following the message
+                await _client.SendAsync(new ArraySegment<byte>(binaryPayload.RawBinaryPayload), WebSocketMessageType.Binary, true,
+                    System.Threading.CancellationToken.None);
+            }
+
             // Wait for response to arrive and cast it to the target type if compatible
             return await responseCompletion.Task as O;
         }
@@ -150,6 +157,9 @@ namespace ResoniteLink
         public Task<Response> AddComponent(AddComponent request) => SendMessage<AddComponent, Response>(request);
         public Task<Response> UpdateComponent(UpdateComponent request) => SendMessage<UpdateComponent, Response>(request);
         public Task<Response> RemoveComponent(RemoveComponent request) => SendMessage<RemoveComponent, Response>(request);
+
+        public Task<AssetData> ImportTexture(ImportTexture2DFile request) => SendMessage<ImportTexture2DFile, AssetData>(request);
+        public Task<AssetData> ImportTexture(ImportTexture2DRawData request) => SendMessage<ImportTexture2DRawData, AssetData>(request);
 
         #endregion
 

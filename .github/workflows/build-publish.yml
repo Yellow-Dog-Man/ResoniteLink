@@ -74,7 +74,7 @@ jobs:
 
       - name: 'Package REPL for release'
         if: ${{ env.IS_RELEASE == 'true' }}
-        run: zip -r repl.zip ${{ github.workspace }}/repl/*
+        run: zip -r repl.zip repl/*
 
       - name: 'Attach REPL package to release'
         if: ${{ env.IS_RELEASE == 'true' }}

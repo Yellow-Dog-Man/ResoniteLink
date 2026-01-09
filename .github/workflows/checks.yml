@@ -2,11 +2,8 @@ name: 'Various checks for the repository'
 
 on:
   push:
-  pull_request:
-    types:
-      - opened
-      - synchronize
-      - reopened
+    branches:
+      - master
 
 jobs:
   secret-detection:

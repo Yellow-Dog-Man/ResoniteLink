@@ -250,6 +250,24 @@ namespace ResoniteLink
                     await SetMember(memberName, setValue);
                     break;
 
+                case CommandType.ImportTexture:
+                    if(string.IsNullOrWhiteSpace(arguments))
+                    {
+                        Console.WriteLine("You must provide a path to the file");
+                        break;
+                    }
+
+                    var path = System.IO.Path.GetFullPath(arguments);
+
+                    if(!System.IO.File.Exists(path))
+                    {
+                        Console.WriteLine("File does not exist");
+                        break;
+                    }
+
+                    await ImportTexture(path);
+                    break;
+
                 case CommandType.Exit:
                     // We stop processing
                     return false;
@@ -530,6 +548,37 @@ namespace ResoniteLink
                 await _messaging.PrintError($"Failed to remove component: {result.ErrorInfo}");
             else if (CurrentComponent?.ID == componentId)
                 CurrentComponent = null;
+        }
+
+        async Task ImportTexture(string path)
+        {
+            var result = await _link.ImportTexture(new ImportTexture2DFile()
+            {
+                FilePath = path
+            });
+
+            if (result.Success)
+                await _messaging.PrintLine($"URL: {result.AssetURL}");
+            else
+                await _messaging.PrintError($"Import failed: {result.ErrorInfo}");
+        }
+
+        static void SplitCommand(string command, out string keyword, out string arguments)
+        {
+            command = command.Trim();
+
+            var spaceIndex = command.IndexOf(' ');
+
+            if (spaceIndex < 0)
+            {
+                keyword = command;
+                arguments = null;
+            }
+            else
+            {
+                keyword = command.Substring(0, spaceIndex);
+                arguments = command.Substring(spaceIndex + 1).Trim();
+            }
         }
     }
 }
