@@ -560,7 +560,7 @@ namespace ResoniteLink
             });
 
             if (result.Success)
-                await _messaging.Print($"URL: {result.AssetURL}");
+                await _messaging.PrintLine($"URL: {result.AssetURL}");
             else
                 await _messaging.PrintError($"Import failed: {result.ErrorInfo}");
         }
