@@ -21,6 +21,9 @@ namespace ResoniteLink
     [JsonDerivedType(typeof(ImportTexture2DFile), "importTexture2DFile")]
     [JsonDerivedType(typeof(ImportTexture2DRawData), "importTexture2DRawData")]
     [JsonDerivedType(typeof(ImportTexture2DRawDataHDR), "importTexture2DRawDataHDR")]
+
+    [JsonDerivedType(typeof(ImportMeshJSON), "importMeshJSON")]
+    [JsonDerivedType(typeof(ImportMeshRawData), "importMeshRawData")]
     public abstract class Message
     {
         /// <summary>

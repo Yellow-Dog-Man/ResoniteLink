@@ -7,7 +7,7 @@ namespace ResoniteLink
 {
     /// <summary>
     /// Represents a message with a binary payload. This payload is sent as a separate WebSocket binary
-    /// message that follows immediatelly after this one.
+    /// message that follows immediately after this one.
     /// </summary>
     public abstract class BinaryPayloadMessage : Message
     {
