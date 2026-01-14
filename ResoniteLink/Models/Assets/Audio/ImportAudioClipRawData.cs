@@ -9,10 +9,11 @@ namespace ResoniteLink
     public class ImportAudioClipRawData : BinaryPayloadMessage
     {
         /// <summary>
-        /// Number of audio samples
+        /// Number of audio samples in this audio clip. This does NOT account for channel count and will be the same
+        /// regardless of mono/stereo/5.1 etc.
         /// </summary>
-        [JsonPropertyName("audioSampleCount")]
-        public int AudioSampleCount { get; set; }
+        [JsonPropertyName("sampleCount")]
+        public int SampleCount { get; set; }
 
         /// <summary>
         /// Sample rate of the audio data
@@ -35,20 +36,20 @@ namespace ResoniteLink
         [JsonIgnore]
         public double Duration
         {
-            get => AudioSampleCount / (double)SampleRate;
+            get => SampleCount / (double)SampleRate;
             set
             {
                 if(SampleRate <= 0)
                     throw new InvalidOperationException("You must set SampleRate before setting Duration");
 
-                AudioSampleCount = (int)(value * SampleRate);
+                SampleCount = (int)(value * SampleRate);
             }
         }
 
         public unsafe Span<float> AccessRawData()
         {
-            if (AudioSampleCount <= 0)
-                throw new ArgumentOutOfRangeException(nameof(AudioSampleCount));
+            if (SampleCount <= 0)
+                throw new ArgumentOutOfRangeException(nameof(SampleCount));
 
             if(SampleRate <= 0)
                 throw new ArgumentOutOfRangeException(nameof(SampleRate));
@@ -56,7 +57,7 @@ namespace ResoniteLink
             if (ChannelCount <= 0)
                 throw new ArgumentOutOfRangeException(nameof(ChannelCount));
 
-            var totalCount = AudioSampleCount * ChannelCount;
+            var totalCount = SampleCount * ChannelCount;
             var bytes = sizeof(float) * totalCount;
 
             if (RawBinaryPayload == null)
