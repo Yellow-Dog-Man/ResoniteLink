@@ -15,18 +15,6 @@ namespace ResoniteLink
         [JsonPropertyName("position")]
         public float Position { get; set; }
 
-        /// <summary>
-        /// Indicates if this blendshape frame has normal deltas
-        /// </summary>
-        [JsonPropertyName("hasNormalDeltas")]
-        public bool HasNormalDeltas { get; set; }
-
-        /// <summary>
-        /// Indicates if this blendshape frame has tangent deltas
-        /// </summary>
-        [JsonPropertyName("hasTangentDeltas")]
-        public bool HasTangentDeltas { get; set; }
-
         [JsonIgnore]
         public Span<float3> PositionDeltas => _positionDeltas.Access(buffer);
 
@@ -42,11 +30,11 @@ namespace ResoniteLink
         BufferSegment<float3> _normalDeltas;
         BufferSegment<float3> _tangentDeltas;
 
-        internal void ComputeBufferOffsets(ImportMeshRawData mesh, ref int offset)
+        internal void ComputeBufferOffsets(ImportMeshRawData mesh, BlendShapeRawData blendshape, ref int offset)
         {
             _positionDeltas = BufferSegment<float3>.AllocateBuffer(mesh.VertexCount, ref offset);
-            _normalDeltas = BufferSegment<float3>.AllocateBuffer(HasNormalDeltas ? mesh.VertexCount : 0, ref offset);
-            _tangentDeltas = BufferSegment<float3>.AllocateBuffer(HasTangentDeltas ? mesh.VertexCount : 0, ref offset);
+            _normalDeltas = BufferSegment<float3>.AllocateBuffer(blendshape.HasNormalDeltas ? mesh.VertexCount : 0, ref offset);
+            _tangentDeltas = BufferSegment<float3>.AllocateBuffer(blendshape.HasTangentDeltas ? mesh.VertexCount : 0, ref offset);
         }
 
         internal void AssignBuffer(byte[] buffer)

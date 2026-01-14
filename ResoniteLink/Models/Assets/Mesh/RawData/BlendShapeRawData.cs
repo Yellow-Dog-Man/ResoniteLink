@@ -14,6 +14,18 @@ namespace ResoniteLink
         public string Name { get; set; }
 
         /// <summary>
+        /// Indicates if this blendshape frame has normal deltas
+        /// </summary>
+        [JsonPropertyName("hasNormalDeltas")]
+        public bool HasNormalDeltas { get; set; }
+
+        /// <summary>
+        /// Indicates if this blendshape frame has tangent deltas
+        /// </summary>
+        [JsonPropertyName("hasTangentDeltas")]
+        public bool HasTangentDeltas { get; set; }
+
+        /// <summary>
         /// Frames that compose this blendshape
         /// Blendshapes need at least 1 frame
         /// </summary>
@@ -23,7 +35,7 @@ namespace ResoniteLink
         internal void ComputeBufferOffsets(ImportMeshRawData mesh, ref int offset)
         {
             foreach (var frame in Frames)
-                frame.ComputeBufferOffsets(mesh, ref offset);
+                frame.ComputeBufferOffsets(mesh, this, ref offset);
         }
 
         internal void AssignBuffer(byte[] buffer)
