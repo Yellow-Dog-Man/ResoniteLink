@@ -166,6 +166,9 @@ namespace ResoniteLink
         public Task<AssetData> ImportMesh(ImportMeshJSON request) => SendMessage<ImportMeshJSON, AssetData>(request);
         public Task<AssetData> ImportMesh(ImportMeshRawData request) => SendMessage<ImportMeshRawData, AssetData>(request);
 
+        public Task<AssetData> ImportAudioClip(ImportAudioClipFile request) => SendMessage<ImportAudioClipFile, AssetData>(request);
+        public Task<AssetData> ImportAudioClip(ImportAudioClipRawData request) => SendMessage<ImportAudioClipRawData, AssetData>(request);
+
         #endregion
 
         public void Dispose()

@@ -24,6 +24,9 @@ namespace ResoniteLink
 
     [JsonDerivedType(typeof(ImportMeshJSON), "importMeshJSON")]
     [JsonDerivedType(typeof(ImportMeshRawData), "importMeshRawData")]
+
+    [JsonDerivedType(typeof(ImportAudioClipFile), "importAudioClipFile")]
+    [JsonDerivedType(typeof(ImportAudioClipRawData), "importAudioClipRawData")]
     public abstract class Message
     {
         /// <summary>
