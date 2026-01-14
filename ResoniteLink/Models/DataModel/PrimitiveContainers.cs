@@ -598,6 +598,88 @@ namespace ResoniteLink
 
         
         
+        public class Field_DateTime : Field
+        {
+            [JsonPropertyName("value")]
+            public DateTime Value { get; set; }
+
+            [JsonIgnore]
+            public override object BoxedValue { get => Value; set => Value = (DateTime)value; }
+
+            [JsonIgnore]
+            public override Type ValueType => typeof(DateTime);
+        }
+
+        public class Array_DateTime : SyncArray
+        {
+            [JsonPropertyName("values")]
+            public List<DateTime> Values { get; set; }
+
+            [JsonIgnore]
+            public override Type ElementType => typeof(DateTime);
+        }
+
+        [JsonDerivedType(typeof(Field_DateTime), "DateTime")]
+        [JsonDerivedType(typeof(Array_DateTime), "DateTime[]")]
+        public partial class Member { }
+
+                    public class Field_Nullable_DateTime : Field
+            {
+                [JsonPropertyName("value")]
+                public DateTime? Value { get; set; }
+
+                [JsonIgnore]
+                public override object BoxedValue { get => Value; set => Value = value as DateTime?; }
+
+                [JsonIgnore]
+                public override Type ValueType => typeof(DateTime?);
+            }
+
+            [JsonDerivedType(typeof(Field_Nullable_DateTime), "DateTime?")]
+            public partial class Member { }
+            
+        
+        public class Field_TimeSpan : Field
+        {
+            [JsonPropertyName("value")]
+            public TimeSpan Value { get; set; }
+
+            [JsonIgnore]
+            public override object BoxedValue { get => Value; set => Value = (TimeSpan)value; }
+
+            [JsonIgnore]
+            public override Type ValueType => typeof(TimeSpan);
+        }
+
+        public class Array_TimeSpan : SyncArray
+        {
+            [JsonPropertyName("values")]
+            public List<TimeSpan> Values { get; set; }
+
+            [JsonIgnore]
+            public override Type ElementType => typeof(TimeSpan);
+        }
+
+        [JsonDerivedType(typeof(Field_TimeSpan), "TimeSpan")]
+        [JsonDerivedType(typeof(Array_TimeSpan), "TimeSpan[]")]
+        public partial class Member { }
+
+                    public class Field_Nullable_TimeSpan : Field
+            {
+                [JsonPropertyName("value")]
+                public TimeSpan? Value { get; set; }
+
+                [JsonIgnore]
+                public override object BoxedValue { get => Value; set => Value = value as TimeSpan?; }
+
+                [JsonIgnore]
+                public override Type ValueType => typeof(TimeSpan?);
+            }
+
+            [JsonDerivedType(typeof(Field_Nullable_TimeSpan), "TimeSpan?")]
+            public partial class Member { }
+            
+        
         public class Field_color : Field
         {
             [JsonPropertyName("value")]

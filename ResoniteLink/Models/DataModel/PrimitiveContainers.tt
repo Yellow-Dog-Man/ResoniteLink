@@ -38,6 +38,9 @@ List<string> standaloneTypes = new List<string>
     "string",
     "Uri",
 
+    "DateTime",
+    "TimeSpan",
+
     "color",
     "colorX",
     "color32",
