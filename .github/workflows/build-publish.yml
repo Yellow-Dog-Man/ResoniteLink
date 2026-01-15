@@ -42,7 +42,7 @@ jobs:
         uses: Yellow-Dog-Man/composite-actions-templates/.github/actions/dotnet-build@main
         with:
           dotnet-project-path: '${{ env.PROJECT_PATH }}'
-          dotnet-build-type: '${{ github.workspace }}/${{ env.BUILD_TYPE }}'
+          dotnet-build-type: '${{ env.BUILD_TYPE }}'
           dotnet-build-args: '-p:Version=${{ github.ref_name }} -o ${{ github.workspace }}/nupkgs'
 
       - name: 'Publish ResoniteLink'
