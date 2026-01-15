@@ -149,6 +149,8 @@ namespace ResoniteLink
 
         #region API
 
+        public Task<SessionData> GetSessionData() => SendMessage<RequestSessionData, SessionData>(new RequestSessionData());
+
         public Task<SlotData> GetSlotData(GetSlot request) => SendMessage<GetSlot, SlotData>(request);
         public Task<ComponentData> GetComponentData(GetComponent request) => SendMessage<GetComponent, ComponentData>(request);
 

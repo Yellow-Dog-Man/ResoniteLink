@@ -26,20 +26,21 @@ namespace ResoniteLink
             _link = link;
             _messaging = messaging;
 
-            if (prefix == null)
-            {
-                // If none is provided, just generate one at random
-                // This isn't the most robust, as it can collide, but usually there's only a handful sessions at most
-                // so this should work well enough for these purposes
-                var r = new Random();
-                _prefix = r.Next().ToString("X");
-            }
-            else
-                _prefix = prefix;
+            _prefix = prefix;
         }
 
         public async Task RunLoop()
         {
+            var sessionData = await _link.GetSessionData();
+
+            // Use the unique session ID when prefix is not specified
+            if (string.IsNullOrEmpty(_prefix))
+                _prefix = sessionData.UniqueSessionId;
+
+            await _messaging.PrintLine($"Resonite version: {sessionData.ResoniteVersion}\n" +
+                $"ResoniteLink version: {sessionData.ResoniteLinkVersion}\n" +
+                $"Session ID: {sessionData.UniqueSessionId}");
+
             // Make sure we start with the root slot selected
             if (CurrentSlot == null)
                 await SelectSlot(Slot.ROOT_SLOT_ID);

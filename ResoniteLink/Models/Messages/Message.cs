@@ -8,6 +8,8 @@ namespace ResoniteLink
     /// <summary>
     /// Base class for any messages/commands sent to Resonite
     /// </summary>
+    [JsonDerivedType(typeof(RequestSessionData), "requestSessionData")]
+
     [JsonDerivedType(typeof(GetSlot), "getSlot")]
     [JsonDerivedType(typeof(AddSlot), "addSlot")]
     [JsonDerivedType(typeof(UpdateSlot), "updateSlot")]
