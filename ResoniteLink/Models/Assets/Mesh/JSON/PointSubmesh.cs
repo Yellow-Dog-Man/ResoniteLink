@@ -10,7 +10,7 @@ namespace ResoniteLink
         /// <summary>
         /// Indexes of vertices for each point in this submesh.
         /// </summary>
-        [JsonPropertyName("vertexIndicies")]
-        public List<int> VertexIndicies { get; set; }
+        [JsonPropertyName("vertexIndices")]
+        public List<int> VertexIndices { get; set; }
     }
 }

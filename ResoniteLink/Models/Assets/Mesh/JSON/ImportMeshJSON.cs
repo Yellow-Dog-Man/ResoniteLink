@@ -22,7 +22,7 @@ namespace ResoniteLink
         /// <summary>
         /// List of submeshes (points, triangles...) representing this mesh.
         /// Meshes will typically have at least one submesh.
-        /// Each submesh uses indicies of the vertices for its primitives.
+        /// Each submesh uses indices of the vertices for its primitives.
         /// </summary>
         [JsonPropertyName("submeshes")]
         public List<Submesh> Submeshes { get; set; }

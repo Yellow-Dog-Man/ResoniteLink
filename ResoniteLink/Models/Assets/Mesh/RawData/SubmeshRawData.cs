@@ -9,17 +9,17 @@ namespace ResoniteLink
     [JsonDerivedType(typeof(TriangleSubmeshRawData), "triangles")]
     public abstract class SubmeshRawData
     {
-        protected abstract int IndicieCount { get; }
+        protected abstract int IndexCount { get; }
 
         [JsonIgnore]
-        public Span<int> Indicies => _indicies.Access(buffer);
+        public Span<int> Indices => _indices.Access(buffer);
 
         byte[] buffer;
-        BufferSegment<int> _indicies;
+        BufferSegment<int> _indices;
 
         internal void ComputeBufferOffsets(ref int offset)
         {
-            _indicies = BufferSegment<int>.AllocateBuffer(IndicieCount, ref offset);
+            _indices = BufferSegment<int>.AllocateBuffer(IndexCount, ref offset);
         }
 
         internal void AssignBuffer(byte[] buffer)
