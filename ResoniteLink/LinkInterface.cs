@@ -90,7 +90,6 @@ namespace ResoniteLink
 
                         case WebSocketMessageType.Binary:
                             throw new NotSupportedException("Binary messages aren't currently supported");
-                            break;
 
                         case WebSocketMessageType.Close:
                             cancellation.Cancel();
