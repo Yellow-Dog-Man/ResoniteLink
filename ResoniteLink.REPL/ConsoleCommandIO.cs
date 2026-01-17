@@ -31,6 +31,5 @@ namespace ResoniteLink.REPL
         }
 
         public async Task<string> ReadCommand() => Console.ReadLine();
-        
     }
 }
