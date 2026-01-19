@@ -11,10 +11,10 @@ namespace ResoniteLink
     public class ComponentDefinition
     {
         /// <summary>
-        /// The type of the container itself. Includes assembly name, namespace and generic parameters
+        /// The type of the container itself.
         /// </summary>
         [JsonPropertyName("type")]
-        public string Type { get; set; }
+        public TypeDefinition Type { get; set; }
 
         /// <summary>
         /// List of all members and their definitions that this container has.
@@ -27,11 +27,5 @@ namespace ResoniteLink
         /// </summary>
         [JsonPropertyName("categoryPath")]
         public string CategoryPath { get; set; }
-
-        /// <summary>
-        /// For generic types, this contains information about their generic arguments.
-        /// </summary>
-        [JsonPropertyName("genericArguments")]
-        public Dictionary<string, GenericArgumentDefinition> GenericArguments { get; set; }
     }
 }
