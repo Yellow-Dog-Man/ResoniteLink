@@ -19,7 +19,7 @@ namespace ResoniteLink
         /// If definitions of components are requested as flattened, base types are omitted.
         /// </summary>
         [JsonPropertyName("baseType")]
-        public BaseTypeDefinition BaseType { get; set; }
+        public string BaseType { get; set; }
 
         /// <summary>
         /// The full type encoded using Resonite's type encoding (which is similar to C# type definitions)
@@ -31,6 +31,7 @@ namespace ResoniteLink
         /// <summary>
         /// Name of the assembly that this type is contained in. This is only filled for Resonite data model types.
         /// </summary>
+        [JsonPropertyName("assemblyName")]
         public string AssemblyName { get; set; }
 
         /// <summary>
@@ -65,9 +66,16 @@ namespace ResoniteLink
         public bool IsGenericParameter { get; set; }
 
         /// <summary>
-        /// For generic types, this lists all the generic arguments for this type.
+        /// For generic types, this lists all the generic arguments for this type when they're provided.
+        /// If the type represents a generic type definition, it will not include those.
         /// </summary>
         [JsonPropertyName("genericArguments")]
-        public List<TypeDefinition> GenericArguments { get; set; }
+        public List<string> GenericArguments { get; set; }
+
+        /// <summary>
+        /// List of generic parameters and their constraints for generic types.
+        /// </summary>
+        [JsonPropertyName("genericParameters")]
+        public List<GenericParameter> GenericParameters { get; set; }
     }
 }

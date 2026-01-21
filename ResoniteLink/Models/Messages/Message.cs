@@ -30,7 +30,8 @@ namespace ResoniteLink
     [JsonDerivedType(typeof(ImportAudioClipFile), "importAudioClipFile")]
     [JsonDerivedType(typeof(ImportAudioClipRawData), "importAudioClipRawData")]
 
-    [JsonDerivedType(typeof(GetComponentList), "getComponentList")]
+    [JsonDerivedType(typeof(GetTypeDefinition), "getTypeDefinition")]
+    [JsonDerivedType(typeof(GetComponentDefinitionList), "getComponentDefinitionList")]
     public abstract class Message
     {
         /// <summary>

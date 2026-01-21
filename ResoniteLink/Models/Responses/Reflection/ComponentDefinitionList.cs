@@ -5,7 +5,7 @@ using System.Text.Json.Serialization;
 
 namespace ResoniteLink
 {
-    public class ComponentList : Response
+    public class ComponentDefinitionList : Response
     {
         /// <summary>
         /// List of components in requested category

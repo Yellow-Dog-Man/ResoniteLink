@@ -5,7 +5,7 @@ using System.Text.Json.Serialization;
 
 namespace ResoniteLink
 {
-    public class GetComponentList : Message
+    public class GetComponentDefinitionList : Message
     {
         public const string ALL_COMPONENTS = "*";
 

@@ -171,11 +171,14 @@ namespace ResoniteLink
         public Task<AssetData> ImportAudioClip(ImportAudioClipFile request) => SendMessage<ImportAudioClipFile, AssetData>(request);
         public Task<AssetData> ImportAudioClip(ImportAudioClipRawData request) => SendMessage<ImportAudioClipRawData, AssetData>(request);
 
-        public Task<ComponentList> RequestComponentList(string categoryPath) => SendMessage<GetComponentList, ComponentList>(
-            new GetComponentList() { CategoryPath = categoryPath });
-        public Task<ComponentList> RequestAllComponents() => SendMessage<GetComponentList, ComponentList>(
-            new GetComponentList() { CategoryPath = GetComponentList.ALL_COMPONENTS });
-        public Task<ComponentList> RequestComponentList(GetComponentList request) => SendMessage<GetComponentList, ComponentList>(request);
+        public Task<ComponentDefinitionList> GetComponentList(string categoryPath) => SendMessage<GetComponentDefinitionList, ComponentDefinitionList>(
+            new GetComponentDefinitionList() { CategoryPath = categoryPath });
+        public Task<ComponentDefinitionList> GetAllComponents() => SendMessage<GetComponentDefinitionList, ComponentDefinitionList>(
+            new GetComponentDefinitionList() { CategoryPath = ResoniteLink.GetComponentDefinitionList.ALL_COMPONENTS });
+        public Task<ComponentDefinitionList> GetComponentList(GetComponentDefinitionList request) => SendMessage<GetComponentDefinitionList, ComponentDefinitionList>(request);
+        public Task<TypeDefinitionResult> GetTypeDefinition(GetTypeDefinition request) => SendMessage<GetTypeDefinition, TypeDefinitionResult>(request);
+        public Task<TypeDefinitionResult> GetTypeDefinition(string typename) => 
+            SendMessage<GetTypeDefinition, TypeDefinitionResult>(new GetTypeDefinition() { Type = typename });
 
         #endregion
 
