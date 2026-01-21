@@ -8,6 +8,12 @@ namespace ResoniteLink
     public class GenericParameter
     {
         /// <summary>
+        /// Name of the generic parameter. This is used to match up
+        /// </summary>
+        [JsonPropertyName("name")]
+        public string Name { get; set; }
+
+        /// <summary>
         /// If this parameter constrains a generic type, this will contain the full type name of the constraint.
         /// </summary>
         [JsonPropertyName("typeName")]
