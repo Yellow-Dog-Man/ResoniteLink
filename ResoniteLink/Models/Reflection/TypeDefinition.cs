@@ -71,6 +71,12 @@ namespace ResoniteLink
         public bool IsEnginePrimitive { get; set; }
 
         /// <summary>
+        /// Indicates if this datatype is an enum. You can request details about the enum, including its values separately.
+        /// </summary>
+        [JsonPropertyName("isEnum")]
+        public bool IsEnum { get; set; }
+
+        /// <summary>
         /// For generic types, this lists all the generic arguments for this type when they're provided.
         /// If the type represents a generic type definition, it will not include those.
         /// This is only populated when the type is a generic type and is NOT a generic type definition.

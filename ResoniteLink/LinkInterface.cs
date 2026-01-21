@@ -186,6 +186,10 @@ namespace ResoniteLink
         public Task<TypeDefinitionData> GetTypeDefinition(string typename) => 
             SendMessage<GetTypeDefinition, TypeDefinitionData>(new GetTypeDefinition() { Type = typename });
 
+        public Task<EnumDefinitionData> GetEnumDefinition(GetEnumDefinition request) => SendMessage<GetEnumDefinition, EnumDefinitionData>(request);
+        public Task<EnumDefinitionData> GetEnumDefinition(string typename) =>
+            SendMessage<GetEnumDefinition, EnumDefinitionData>(new GetEnumDefinition() { Type = typename });
+
         #endregion
 
         public void Dispose()

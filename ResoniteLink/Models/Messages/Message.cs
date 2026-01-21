@@ -31,6 +31,7 @@ namespace ResoniteLink
     [JsonDerivedType(typeof(ImportAudioClipRawData), "importAudioClipRawData")]
 
     [JsonDerivedType(typeof(GetTypeDefinition), "getTypeDefinition")]
+    [JsonDerivedType(typeof(GetEnumDefinition), "getEnumDefinition")]
     [JsonDerivedType(typeof(GetComponentDefinition), "getComponentDefinition")]
     [JsonDerivedType(typeof(GetComponentTypeList), "getComponentTypeList")]
     public abstract class Message
