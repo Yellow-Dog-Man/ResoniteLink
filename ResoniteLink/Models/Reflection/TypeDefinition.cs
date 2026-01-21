@@ -53,6 +53,19 @@ namespace ResoniteLink
         public bool IsInterface { get; set; }
 
         /// <summary>
+        /// Indicates if this is a generic type. Generic types have generic parameters, which allow to substitute different
+        /// types within the type.
+        /// </summary>
+        [JsonPropertyName("isGenericType")]
+        public bool IsGenericType { get; set; }
+
+        /// <summary>
+        /// Indicates if this is a definition of a generic type - it represents the "core" type without any generic arguments.
+        /// </summary>
+        [JsonPropertyName("isGenericTypeDefinition")]
+        public bool IsGenericTypeDefinition { get; set; }
+
+        /// <summary>
         /// Indicates if this datatype is an engine primitive - one that can be used as value in fields
         /// </summary>
         [JsonPropertyName("isEnginePrimitive")]
@@ -68,12 +81,14 @@ namespace ResoniteLink
         /// <summary>
         /// For generic types, this lists all the generic arguments for this type when they're provided.
         /// If the type represents a generic type definition, it will not include those.
+        /// This is only populated when the type is a generic type and is NOT a generic type definition.
         /// </summary>
         [JsonPropertyName("genericArguments")]
         public List<string> GenericArguments { get; set; }
 
         /// <summary>
         /// List of generic parameters and their constraints for generic types.
+        /// This is only populated for generic types.
         /// </summary>
         [JsonPropertyName("genericParameters")]
         public List<GenericParameter> GenericParameters { get; set; }
