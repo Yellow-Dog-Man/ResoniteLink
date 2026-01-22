@@ -71,15 +71,6 @@ namespace ResoniteLink
         public bool IsGenericTypeDefinition { get; set; }
 
         /// <summary>
-        /// Indicates if this represents a data model type or not.
-        /// DataModel types can be used and referenced within the data model itself - e.g. as generic parameters for components.
-        /// Non-data model types are provided as reference only and are NOT guaranteed to be stable. You should not use them beyond
-        /// reference purposes.
-        /// </summary>
-        [JsonPropertyName("isDataModelType")]
-        public bool IsDataModelType { get; set; }
-
-        /// <summary>
         /// Indicates if this datatype is an engine primitive - one that can be used as value in fields
         /// </summary>
         [JsonPropertyName("isEnginePrimitive")]
