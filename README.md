@@ -16,7 +16,7 @@ There are a few community projects built around or with ResoniteLink:
 
 | Repository                                                                            | Description                                                     |
 |---------------------------------------------------------------------------------------|-----------------------------------------------------------------|
-| [RobertBaruch/pyresonitelink](https://github.com/RobertBaruch/pyresonitelink)         | Python bindings for ResoniteLink                                |
+| [XekriRedmane/pyresonitelink](https://github.com/XekriRedmane/pyresonitelink)         | Python bindings for ResoniteLink                                |
 | [JackTheFoxOtter/ResoniteLink.py](https://github.com/JackTheFoxOtter/ResoniteLink.py) | Python wrapper for ResoniteLink (still under heavy development) |
 
 ## Rust <img alt="Rust programming language logo. R letter in a dented wheel." src="https://skillicons.dev/icons?i=rust" width="16">
@@ -62,7 +62,7 @@ You can find the documentation [hosted on GitHub pages](https://yellow-dog-man.g
     - Any tool will benefit from free collaboration & network synchronization and fully built VR interactions without having to build this by itself
 
 ## Does this replace in-game building?
-No. 
+No.
 
 Building in-game is still our primary focus. Any content you bring into Resonite via this protocol can still be edited and worked with using the in-game tools.
 
@@ -143,7 +143,7 @@ To fetch information about the scene hierarchy, you can use the `getSlot` messag
 Here's a few things:
 `slotId` - ID of the slot we are fetching. Root slot has special ID "Root", otherwise you get the ID's of other slots as a result of this query.
 
-`includeComponentData` - When true, the response will contain full data of components on the fetched slots. This can be useful if you want to get the data as single bulk, but can be inefficient if you're fetching it piece by piece. When false, the response will only include reference data for the components (their type & ID). You can fetch data for individual components later. 
+`includeComponentData` - When true, the response will contain full data of components on the fetched slots. This can be useful if you want to get the data as single bulk, but can be inefficient if you're fetching it piece by piece. When false, the response will only include reference data for the components (their type & ID). You can fetch data for individual components later.
 
 `depth` - Indicates how deep to fully fetch slots. 0 will only fully fetch the requested slot. Any children will only have basic reference info (Name & ID's). -1 will fetch as deep as possible. Doing -1 at Root slot will fetch the entire scene hierarchy
 
