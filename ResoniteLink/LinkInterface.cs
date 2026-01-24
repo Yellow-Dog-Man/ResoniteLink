@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Net.WebSockets;
 using System.Threading.Tasks;
 using System.Collections.Concurrent;
@@ -17,39 +15,36 @@ namespace ResoniteLink
         public bool IsConnected => _client.State == WebSocketState.Open;
         public Exception FailureException { get; private set; }
 
-        ClientWebSocket _client;
-        CancellationTokenSource cancellation;
-
-        JsonSerializerOptions _options;
-
-        ConcurrentDictionary<string, TaskCompletionSource<Response>> _pendingResponses = new ConcurrentDictionary<string, TaskCompletionSource<Response>>();
-
-        public LinkInterface()
+        readonly ClientWebSocket _client = new ClientWebSocket();
+        readonly SemaphoreSlim _clientWriteLock = new SemaphoreSlim(1);
+        
+        readonly CancellationTokenSource _receiverCts = new CancellationTokenSource();
+        
+        readonly JsonSerializerOptions _options = new JsonSerializerOptions()
         {
-            _options = new JsonSerializerOptions()
+            // Necessary for values like Infinity, NaN and so on
+            NumberHandling = System.Text.Json.Serialization.JsonNumberHandling.AllowNamedFloatingPointLiterals,
+            AllowOutOfOrderMetadataProperties = true,
+        };
+
+        readonly ConcurrentDictionary<string, TaskCompletionSource<Response>> _pendingResponses = new ConcurrentDictionary<string, TaskCompletionSource<Response>>();
+
+        public async Task Connect(Uri target, CancellationToken cancellationToken)
+        {
+            using (await SemaphoreLock.AcquireAsync(_clientWriteLock, cancellationToken))
             {
-                // Necessary for values like Infinity, NaN and so on
-                NumberHandling = System.Text.Json.Serialization.JsonNumberHandling.AllowNamedFloatingPointLiterals,
-                AllowOutOfOrderMetadataProperties = true,
-            };
+                if (IsConnected || _receiverCts.IsCancellationRequested)
+                    throw new InvalidOperationException("Client has already been initialized.");
+
+                await _client.ConnectAsync(target, cancellationToken);
+            }
+
+            _ = Task.Run(ReceiverHandler);
         }
 
-        public async Task Connect(Uri target, System.Threading.CancellationToken cancellationToken)
+        async Task ReceiverHandler()
         {
-            if(_client != null)
-                throw new InvalidOperationException("Client has already been initialized.");
-
-            _client = new ClientWebSocket();
-
-            cancellation = CancellationTokenSource.CreateLinkedTokenSource(cancellationToken);
-
-            await _client.ConnectAsync(target, cancellation.Token);
-
-            _ = Task.Run(async () => ReceiverHandler(cancellation.Token));
-        }
-
-        async Task ReceiverHandler(CancellationToken cancellationToken)
-        {
+            var cancellationToken = _receiverCts.Token;
             try
             {
                 byte[] buffer = new byte[DEFAULT_BUFFER_SIZE];
@@ -58,7 +53,7 @@ namespace ResoniteLink
 
                 while (!cancellationToken.IsCancellationRequested)
                 {
-                    if(receivedBytes == buffer.Length)
+                    if (receivedBytes == buffer.Length)
                     {
                         // We need bigger buffer!
                         var newBuffer = new byte[buffer.Length * 2];
@@ -93,7 +88,7 @@ namespace ResoniteLink
                             break;
 
                         case WebSocketMessageType.Close:
-                            cancellation.Cancel();
+                            _receiverCts.Cancel();
                             break;
                     }
 
@@ -114,7 +109,7 @@ namespace ResoniteLink
             _client.Dispose();
         }
 
-        async Task<O> SendMessage<I,O>(I message)
+        async Task<O> SendMessage<I,O>(I message, CancellationToken cancellationToken = default)
             where I : Message
             where O : Response
         {
@@ -122,19 +117,25 @@ namespace ResoniteLink
 
             var responseCompletion = new TaskCompletionSource<Response>();
 
-            if (!_pendingResponses.TryAdd(message.MessageID, responseCompletion))
-                throw new InvalidOperationException("Failed to register MessageID. Did you provide duplicate MessageID?");
-
             var jsonData = System.Text.Json.JsonSerializer.SerializeToUtf8Bytes((Message)message);
 
-            await _client.SendAsync(new ArraySegment<byte>(jsonData), 
-                WebSocketMessageType.Text, true, System.Threading.CancellationToken.None);
-
-            if(message is BinaryPayloadMessage binaryPayload)
+            using (await SemaphoreLock.AcquireAsync(_clientWriteLock, cancellationToken))
             {
-                // We must send the binary payload as well following the message
-                await _client.SendAsync(new ArraySegment<byte>(binaryPayload.RawBinaryPayload), WebSocketMessageType.Binary, true,
-                    System.Threading.CancellationToken.None);
+                // Enqueue the message after the lock is acquired, so cancellation can prevent the response being ready.
+                if (!_pendingResponses.TryAdd(message.MessageID, responseCompletion))
+                    throw new InvalidOperationException(
+                        "Failed to register MessageID. Did you provide duplicate MessageID?");
+
+                await _client.SendAsync(new ArraySegment<byte>(jsonData),
+                    WebSocketMessageType.Text, true, System.Threading.CancellationToken.None);
+
+                if (message is BinaryPayloadMessage binaryPayload)
+                {
+                    // We must send the binary payload as well following the message
+                    await _client.SendAsync(new ArraySegment<byte>(binaryPayload.RawBinaryPayload),
+                        WebSocketMessageType.Binary, true,
+                        System.Threading.CancellationToken.None);
+                }
             }
 
             // Wait for response to arrive and cast it to the target type if compatible
@@ -149,33 +150,40 @@ namespace ResoniteLink
 
         #region API
 
-        public Task<SessionData> GetSessionData() => SendMessage<RequestSessionData, SessionData>(new RequestSessionData());
+        public Task<SessionData> GetSessionData(CancellationToken cancellationToken = default) => SendMessage<RequestSessionData, SessionData>(new RequestSessionData(), cancellationToken);
 
-        public Task<SlotData> GetSlotData(GetSlot request) => SendMessage<GetSlot, SlotData>(request);
-        public Task<ComponentData> GetComponentData(GetComponent request) => SendMessage<GetComponent, ComponentData>(request);
+        public Task<SlotData> GetSlotData(GetSlot request, CancellationToken cancellationToken = default) => SendMessage<GetSlot, SlotData>(request, cancellationToken);
+        public Task<ComponentData> GetComponentData(GetComponent request, CancellationToken cancellationToken = default) => SendMessage<GetComponent, ComponentData>(request, cancellationToken);
 
-        public Task<Response> AddSlot(AddSlot request) => SendMessage<AddSlot, Response>(request);
-        public Task<Response> UpdateSlot(UpdateSlot request) => SendMessage<UpdateSlot, Response>(request);
-        public Task<Response> RemoveSlot(RemoveSlot request) => SendMessage<RemoveSlot, Response>(request);
+        public Task<Response> AddSlot(AddSlot request, CancellationToken cancellationToken = default) => SendMessage<AddSlot, Response>(request, cancellationToken);
+        public Task<Response> UpdateSlot(UpdateSlot request, CancellationToken cancellationToken = default) => SendMessage<UpdateSlot, Response>(request, cancellationToken);
+        public Task<Response> RemoveSlot(RemoveSlot request, CancellationToken cancellationToken = default) => SendMessage<RemoveSlot, Response>(request, cancellationToken);
 
-        public Task<Response> AddComponent(AddComponent request) => SendMessage<AddComponent, Response>(request);
-        public Task<Response> UpdateComponent(UpdateComponent request) => SendMessage<UpdateComponent, Response>(request);
-        public Task<Response> RemoveComponent(RemoveComponent request) => SendMessage<RemoveComponent, Response>(request);
+        public Task<Response> AddComponent(AddComponent request, CancellationToken cancellationToken = default) => SendMessage<AddComponent, Response>(request, cancellationToken);
+        public Task<Response> UpdateComponent(UpdateComponent request, CancellationToken cancellationToken = default) => SendMessage<UpdateComponent, Response>(request, cancellationToken);
+        public Task<Response> RemoveComponent(RemoveComponent request, CancellationToken cancellationToken = default) => SendMessage<RemoveComponent, Response>(request, cancellationToken);
 
-        public Task<AssetData> ImportTexture(ImportTexture2DFile request) => SendMessage<ImportTexture2DFile, AssetData>(request);
-        public Task<AssetData> ImportTexture(ImportTexture2DRawData request) => SendMessage<ImportTexture2DRawData, AssetData>(request);
+        public Task<AssetData> ImportTexture(ImportTexture2DFile request, CancellationToken cancellationToken = default) => SendMessage<ImportTexture2DFile, AssetData>(request, cancellationToken);
+        public Task<AssetData> ImportTexture(ImportTexture2DRawData request, CancellationToken cancellationToken = default) => SendMessage<ImportTexture2DRawData, AssetData>(request, cancellationToken);
 
-        public Task<AssetData> ImportMesh(ImportMeshJSON request) => SendMessage<ImportMeshJSON, AssetData>(request);
-        public Task<AssetData> ImportMesh(ImportMeshRawData request) => SendMessage<ImportMeshRawData, AssetData>(request);
+        public Task<AssetData> ImportMesh(ImportMeshJSON request, CancellationToken cancellationToken = default) => SendMessage<ImportMeshJSON, AssetData>(request, cancellationToken);
+        public Task<AssetData> ImportMesh(ImportMeshRawData request, CancellationToken cancellationToken = default) => SendMessage<ImportMeshRawData, AssetData>(request, cancellationToken);
 
-        public Task<AssetData> ImportAudioClip(ImportAudioClipFile request) => SendMessage<ImportAudioClipFile, AssetData>(request);
-        public Task<AssetData> ImportAudioClip(ImportAudioClipRawData request) => SendMessage<ImportAudioClipRawData, AssetData>(request);
+        public Task<AssetData> ImportAudioClip(ImportAudioClipFile request, CancellationToken cancellationToken = default) => SendMessage<ImportAudioClipFile, AssetData>(request, cancellationToken);
+        public Task<AssetData> ImportAudioClip(ImportAudioClipRawData request, CancellationToken cancellationToken = default) => SendMessage<ImportAudioClipRawData, AssetData>(request, cancellationToken);
 
         #endregion
 
         public void Dispose()
         {
-            cancellation.Cancel();
+            _receiverCts.Cancel();
+            _receiverCts.Dispose();
+            _clientWriteLock.Dispose();
+            _client.Dispose();
+            foreach (var children in _pendingResponses.Values)
+            {
+                children.TrySetCanceled();
+            }
         }
     }
 }
