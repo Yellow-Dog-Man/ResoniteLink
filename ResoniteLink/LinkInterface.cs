@@ -109,7 +109,7 @@ namespace ResoniteLink
                 await _client.CloseAsync(FailureException == null ?
                     WebSocketCloseStatus.NormalClosure :
                     WebSocketCloseStatus.InternalServerError, 
-                    FailureException == null ? "Closing" : "Internal Error", CancellationToken.None);
+                    FailureException == null ? "Closing" : "Internal Error", cancellation.Token);
 
             _client.Dispose();
         }
@@ -128,13 +128,13 @@ namespace ResoniteLink
             var jsonData = System.Text.Json.JsonSerializer.SerializeToUtf8Bytes((Message)message);
 
             await _client.SendAsync(new ArraySegment<byte>(jsonData), 
-                WebSocketMessageType.Text, true, System.Threading.CancellationToken.None);
+                WebSocketMessageType.Text, true, cancellation.Token);
 
             if(message is BinaryPayloadMessage binaryPayload)
             {
                 // We must send the binary payload as well following the message
                 await _client.SendAsync(new ArraySegment<byte>(binaryPayload.RawBinaryPayload), WebSocketMessageType.Binary, true,
-                    System.Threading.CancellationToken.None);
+                    cancellation.Token);
             }
 
             // Wait for response to arrive and cast it to the target type if compatible
@@ -171,11 +171,37 @@ namespace ResoniteLink
         public Task<AssetData> ImportAudioClip(ImportAudioClipFile request) => SendMessage<ImportAudioClipFile, AssetData>(request);
         public Task<AssetData> ImportAudioClip(ImportAudioClipRawData request) => SendMessage<ImportAudioClipRawData, AssetData>(request);
 
+        public Task<ComponentTypeList> GetComponentTypes(string categoryPath) => SendMessage<GetComponentTypeList, ComponentTypeList>(
+            new GetComponentTypeList() { CategoryPath = categoryPath });
+        public Task<ComponentTypeList> GetAllComponentTypes() => SendMessage<GetComponentTypeList, ComponentTypeList>(
+            new GetComponentTypeList() { CategoryPath = ResoniteLink.GetComponentTypeList.ALL_COMPONENTS });
+        public Task<ComponentTypeList> GetComponentTypeList(GetComponentTypeList request) => SendMessage<GetComponentTypeList, ComponentTypeList>(request);
+
+        public Task<ComponentDefinitionData> GetComponentDefinition(GetComponentDefinition request) =>
+            SendMessage<GetComponentDefinition, ComponentDefinitionData>(request);
+
+        public Task<ComponentDefinitionData> GetComponentDefinition(string type, bool flattened) => SendMessage<GetComponentDefinition, ComponentDefinitionData>(
+            new GetComponentDefinition() { ComponentType = type, Flattened = flattened });
+        public Task<TypeDefinitionData> GetTypeDefinition(GetTypeDefinition request) => SendMessage<GetTypeDefinition, TypeDefinitionData>(request);
+        public Task<TypeDefinitionData> GetTypeDefinition(string typename) => 
+            SendMessage<GetTypeDefinition, TypeDefinitionData>(new GetTypeDefinition() { Type = typename });
+        public Task<TypeDefinitionData> GetGenericTypeDefinition(GetGenericTypeDefinition request) => SendMessage<GetGenericTypeDefinition, TypeDefinitionData>(request);
+        public Task<TypeDefinitionData> GetGenericTypeDefinition(string typename) =>
+            SendMessage<GetGenericTypeDefinition, TypeDefinitionData>(new GetGenericTypeDefinition() { GenericInstanceType = typename });
+
+        public Task<EnumDefinitionData> GetEnumDefinition(GetEnumDefinition request) => SendMessage<GetEnumDefinition, EnumDefinitionData>(request);
+        public Task<EnumDefinitionData> GetEnumDefinition(string typename) =>
+            SendMessage<GetEnumDefinition, EnumDefinitionData>(new GetEnumDefinition() { Type = typename });
+
         #endregion
 
         public void Dispose()
         {
             cancellation.Cancel();
+
+            // Cancel all the pending responses
+            foreach (var pending in _pendingResponses)
+                pending.Value.TrySetCanceled();
         }
     }
 }
