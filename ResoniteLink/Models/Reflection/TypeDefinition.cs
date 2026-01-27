@@ -89,6 +89,18 @@ namespace ResoniteLink
         public bool IsComponent { get; set; }
 
         /// <summary>
+        /// Indicates if this type is nested within another type definition
+        /// </summary>
+        [JsonPropertyName("isNested")]
+        public bool IsNested { get; set; }
+
+        /// <summary>
+        /// When the type is nested, this contains the name of the type that is declaring this particular type.
+        /// </summary>
+        [JsonPropertyName("declaringType")]
+        public string DeclaringType { get; set; }
+
+        /// <summary>
         /// For generic types, this lists all the generic arguments for this type when they're provided.
         /// If the type represents a generic type definition, it will not include those.
         /// This is only populated when the type is a generic type and is NOT a generic type definition.
