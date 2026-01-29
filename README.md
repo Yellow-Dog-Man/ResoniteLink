@@ -21,15 +21,28 @@ There are a few community projects built around or with ResoniteLink:
 
 ## Rust <img alt="Rust programming language logo. R letter in a dented wheel." src="https://skillicons.dev/icons?i=rust" width="16">
 
-| Repository                                                                            | Description                                                    |
-|---------------------------------------------------------------------------------------|----------------------------------------------------------------|
-| [Earthmark/ResoLink-rs](https://github.com/Earthmark/ResoLink-rs)                     | Rust bindings and GRPC bridge for ResoniteLink.                |
+| Repository                                                  | Description                            |
+|-------------------------------------------------------------|----------------------------------------|
+| [Resoxide/resoxide-link](github.com/Resoxide/resoxide-link) | A Rust implementation of ResoniteLink. |
 
 ## Golang  <img alt="Golang programming language logo. Go text on coloured background." src="https://skillicons.dev/icons?i=go" width="16">
 
 | Repository                                                                    | Description                                            |
 |-------------------------------------------------------------------------------|--------------------------------------------------------|
 | [CyrillusDerg/GoResoniteLink](https://github.com/CyrillusDerg/GoResoniteLink) | Go implementation of REPL with extended functionality. |
+
+## C#  <img alt="C# programming language logo. C and # characters on a bright background." src="https://skillicons.dev/icons?i=cs" width="16">
+
+| Repository                                                                      | Description                                                                                       |
+|---------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------|
+| [ssmucny/ResoniteLink.RPath](https://github.com/ssmucny/ResoniteLink.RPath)     | API to perform more complex queries on ResoniteLink, similar to LINQ, but not quite the same.     |
+| [Earthmark/Rfmk.Resolink.Grpc](https://github.com/Earthmark/Rfmk.Resolink.Grpc) | A gRPC proxy for ResoniteLink, exposing ResoniteLink with a strongly-typed GRPC and protobuf API. |
+
+## JavaScript  <img alt="JavaScript programming language logo. JS letters on a bright coloured background." src="https://skillicons.dev/icons?i=js" width="16">
+
+| Repository                                                            | Description                                                           |
+|-----------------------------------------------------------------------|-----------------------------------------------------------------------|
+| [xhayper/ResoniteLink.js](https://github.com/xhayper/ResoniteLink.js) | A type-safe, easy to use JS wrapper for interacting with ResoniteLink |
 
 If you build something cool, let us know (just create an issue on this repository) with a link, and we'll add it when we can!
 
