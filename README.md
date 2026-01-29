@@ -21,9 +21,9 @@ There are a few community projects built around or with ResoniteLink:
 
 ## Rust <img alt="Rust programming language logo. R letter in a dented wheel." src="https://skillicons.dev/icons?i=rust" width="16">
 
-| Repository                                                                            | Description                                                    |
-|---------------------------------------------------------------------------------------|----------------------------------------------------------------|
-| [Earthmark/ResoLink-rs](https://github.com/Earthmark/ResoLink-rs)                     | Rust bindings and GRPC bridge for ResoniteLink.                |
+| Repository                                                                      | Description                                                                                       |
+|---------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------|
+| [Earthmark/Rfmk.Resolink.Grpc](https://github.com/Earthmark/Rfmk.Resolink.Grpc) | A gRPC proxy for ResoniteLink, exposing ResoniteLink with a strongly-typed GRPC and protobuf API. |
 
 ## Golang  <img alt="Golang programming language logo. Go text on coloured background." src="https://skillicons.dev/icons?i=go" width="16">
 
