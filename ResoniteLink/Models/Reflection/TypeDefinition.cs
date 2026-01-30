@@ -18,7 +18,7 @@ namespace ResoniteLink
         /// Contains definition of base type of this type if requested and if the base type is relevant to ResoniteLink.
         /// </summary>
         [JsonPropertyName("baseType")]
-        public BaseTypeDefinition BaseType { get; set; }
+        public TypeReference BaseType { get; set; }
 
         /// <summary>
         /// The full type encoded using Resonite's type encoding (which is similar to C# type definitions)
@@ -121,5 +121,12 @@ namespace ResoniteLink
         /// </summary>
         [JsonPropertyName("genericParameters")]
         public List<GenericParameter> GenericParameters { get; set; }
+
+        /// <summary>
+        /// List of interfaces that this type implements. This includes interfaces only specified on the type itself.
+        /// You will need to check the base type for inherited interfaces.
+        /// </summary>
+        [JsonPropertyName("interfaces")]
+        public List<TypeReference> Interfaces { get; set; }
     }
 }
