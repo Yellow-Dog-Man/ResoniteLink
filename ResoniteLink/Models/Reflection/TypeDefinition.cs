@@ -96,6 +96,12 @@ namespace ResoniteLink
         public bool IsComponent { get; set; }
 
         /// <summary>
+        /// Indicates if this type represents a world element - a type that can be referenced by the data model
+        /// </summary>
+        [JsonPropertyName("isWorldElement")]
+        public bool IsWorldElement { get; set; }
+
+        /// <summary>
         /// Indicates if this type is nested within another type definition
         /// </summary>
         [JsonPropertyName("isNested")]
