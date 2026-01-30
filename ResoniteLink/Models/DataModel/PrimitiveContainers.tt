@@ -44,6 +44,9 @@ List<string> standaloneTypes = new List<string>
     "color",
     "colorX",
     "color32",
+
+    "Rect",
+    "IntRect",
 };
 
 List<string> vectorTypes = new List<string>

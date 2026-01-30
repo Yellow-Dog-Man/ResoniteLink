@@ -803,6 +803,88 @@ namespace ResoniteLink
             public partial class Member { }
             
         
+        public class Field_Rect : Field
+        {
+            [JsonPropertyName("value")]
+            public Rect Value { get; set; }
+
+            [JsonIgnore]
+            public override object BoxedValue { get => Value; set => Value = (Rect)value; }
+
+            [JsonIgnore]
+            public override Type ValueType => typeof(Rect);
+        }
+
+        public class Array_Rect : SyncArray
+        {
+            [JsonPropertyName("values")]
+            public List<Rect> Values { get; set; }
+
+            [JsonIgnore]
+            public override Type ElementType => typeof(Rect);
+        }
+
+        [JsonDerivedType(typeof(Field_Rect), "Rect")]
+        [JsonDerivedType(typeof(Array_Rect), "Rect[]")]
+        public partial class Member { }
+
+                    public class Field_Nullable_Rect : Field
+            {
+                [JsonPropertyName("value")]
+                public Rect? Value { get; set; }
+
+                [JsonIgnore]
+                public override object BoxedValue { get => Value; set => Value = value as Rect?; }
+
+                [JsonIgnore]
+                public override Type ValueType => typeof(Rect?);
+            }
+
+            [JsonDerivedType(typeof(Field_Nullable_Rect), "Rect?")]
+            public partial class Member { }
+            
+        
+        public class Field_IntRect : Field
+        {
+            [JsonPropertyName("value")]
+            public IntRect Value { get; set; }
+
+            [JsonIgnore]
+            public override object BoxedValue { get => Value; set => Value = (IntRect)value; }
+
+            [JsonIgnore]
+            public override Type ValueType => typeof(IntRect);
+        }
+
+        public class Array_IntRect : SyncArray
+        {
+            [JsonPropertyName("values")]
+            public List<IntRect> Values { get; set; }
+
+            [JsonIgnore]
+            public override Type ElementType => typeof(IntRect);
+        }
+
+        [JsonDerivedType(typeof(Field_IntRect), "IntRect")]
+        [JsonDerivedType(typeof(Array_IntRect), "IntRect[]")]
+        public partial class Member { }
+
+                    public class Field_Nullable_IntRect : Field
+            {
+                [JsonPropertyName("value")]
+                public IntRect? Value { get; set; }
+
+                [JsonIgnore]
+                public override object BoxedValue { get => Value; set => Value = value as IntRect?; }
+
+                [JsonIgnore]
+                public override Type ValueType => typeof(IntRect?);
+            }
+
+            [JsonDerivedType(typeof(Field_Nullable_IntRect), "IntRect?")]
+            public partial class Member { }
+            
+        
         public class Field_float2 : Field
         {
             [JsonPropertyName("value")]
