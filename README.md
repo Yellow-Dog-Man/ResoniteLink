@@ -17,7 +17,7 @@ There are a few community projects built around or with ResoniteLink:
 | Repository                                                                            | Description                                                     |
 |---------------------------------------------------------------------------------------|-----------------------------------------------------------------|
 | [XekriRedmane/pyresonitelink](https://github.com/XekriRedmane/pyresonitelink)         | Python bindings for ResoniteLink                                |
-| [JackTheFoxOtter/ResoniteLink.py](https://github.com/JackTheFoxOtter/ResoniteLink.py) | Python wrapper for ResoniteLink (still under heavy development) |
+| [JackTheFoxOtter/ResoniteLink.py](https://github.com/JackTheFoxOtter/ResoniteLink.py) | A modern & easy to use Python wrapper for ResoniteLink.         |
 
 ## Rust <img alt="Rust programming language logo. R letter in a dented wheel." src="https://skillicons.dev/icons?i=rust" width="16">
 
