@@ -18,5 +18,11 @@ namespace ResoniteLink
         /// </summary>
         [JsonPropertyName("subcategories")]
         public List<string> SubCategories { get; set; }
+
+        /// <summary>
+        /// Number of components in the requested category and all subcategories as well
+        /// </summary>
+        [JsonPropertyName("totalComponentCount")]
+        public int TotalComponentCount { get; set; }
     }
 }
