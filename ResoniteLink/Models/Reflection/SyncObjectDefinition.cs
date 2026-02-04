@@ -6,14 +6,15 @@ using System.Text.Json.Serialization;
 namespace ResoniteLink
 {
     /// <summary>
-    /// SyncObjects are entities that are members of a container (like a component), which contain their own members
+    /// Definition of a sync object type
     /// </summary>
-    public class SyncObjectDefinition : MemberDefinition
+    public class SyncObjectDefinition : WorkerDefinition
     {
         /// <summary>
-        /// List of all members and their definitions that this container has.
+        /// Indicates of the base type of this sync object is also a sync object and should have its bindings generated.
+        /// When false, the base type should not be treated like a sync object anymore.
         /// </summary>
-        [JsonPropertyName("members")]
-        public Dictionary<string, MemberDefinition> Members { get; set; }
+        [JsonPropertyName("baseTypeIsSyncObject")]
+        public bool BaseTypeIsSyncObject { get; set; }
     }
 }
