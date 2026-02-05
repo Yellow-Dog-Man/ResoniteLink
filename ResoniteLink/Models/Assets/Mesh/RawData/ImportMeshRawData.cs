@@ -66,7 +66,7 @@ namespace ResoniteLink
         /// These allow modifying the vertex positions, normals & tangents for animations such as facial expressions.
         /// </summary>
         [JsonPropertyName("blendshapes")]
-        public List<BlendShapeRawData> BlendShapes { get; set; }
+        public List<BlendshapeRawData> Blendshapes { get; set; }
 
         /// <summary>
         /// Bones of the mesh when data represents a skinned mesh.
@@ -162,8 +162,8 @@ namespace ResoniteLink
                 foreach (var submesh in Submeshes)
                     submesh.ComputeBufferOffsets(ref offset);
 
-            if(BlendShapes != null)
-                foreach(var blendshape in BlendShapes)
+            if(Blendshapes != null)
+                foreach(var blendshape in Blendshapes)
                     blendshape.ComputeBufferOffsets(this, ref offset);
 
             return offset;
@@ -175,8 +175,8 @@ namespace ResoniteLink
                 foreach (var submesh in Submeshes)
                     submesh.AssignBuffer(RawBinaryPayload);
 
-            if(BlendShapes != null)
-                foreach(var blendshape in BlendShapes)
+            if(Blendshapes != null)
+                foreach(var blendshape in Blendshapes)
                     blendshape.AssignBuffer(RawBinaryPayload);
         }
     }

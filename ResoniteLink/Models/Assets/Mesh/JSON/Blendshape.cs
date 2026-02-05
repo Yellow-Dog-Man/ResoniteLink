@@ -5,7 +5,7 @@ using System.Text.Json.Serialization;
 
 namespace ResoniteLink
 {
-    public class BlendShape
+    public class Blendshape
     {
         /// <summary>
         /// Name of the Blendshape
