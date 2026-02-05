@@ -8,8 +8,8 @@ namespace ResoniteLink
 {
     public class REPL_Controller
     {
-        LinkInterface _link;
-        ICommandIO _messaging;
+        readonly LinkInterface _link;
+        readonly ICommandIO _messaging;
 
         public Slot CurrentSlot { get; private set; }
         public Component CurrentComponent { get; private set; }
@@ -51,7 +51,8 @@ namespace ResoniteLink
             {
                 await PrintPrompt();
 
-                var command = await _messaging.ReadCommand();
+                var input = await _messaging.ReadCommand();
+                var command = CommandParser.ReadCommand(input);
 
                 keepProcessing = await ProcessCommand(command);
             } while (keepProcessing);
@@ -69,21 +70,19 @@ namespace ResoniteLink
             await _messaging.PrintPrompt(str.ToString());
         }
         
-        async Task<bool> ProcessCommand(string command)
+        async Task<bool> ProcessCommand(Command command)
         {
-            SplitCommand(command, out var keyword, out var arguments);
+            var commandType = command.CommandType;
+            var arguments = command.Arguments;
 
-            // Normalize it, so we are case insensitive
-            keyword = keyword.ToLowerInvariant();
-
-            switch(keyword)
+            switch(commandType)
             {
-                case "echo":
+                case CommandType.Echo:
                     // Not necessary, but a good for sanity check
                     await _messaging.PrintLine(arguments);
                     break;
 
-                case "listchildren":
+                case CommandType.ListChildren:
                     await RefreshCurrent();
 
                     await _messaging.PrintLine("Children count: " + (CurrentSlot.Children?.Count ?? 0));
@@ -96,7 +95,7 @@ namespace ResoniteLink
 
                     break;
 
-                case "listcomponents":
+                case CommandType.ListComponents:
                     await RefreshCurrent();
 
                     await _messaging.PrintLine("Component count: " + (CurrentSlot.Components?.Count ?? 0));
@@ -108,7 +107,7 @@ namespace ResoniteLink
                     }
                     break;
 
-                case "selectchild":
+                case CommandType.SelectChild:
                     if(!int.TryParse(arguments, out var childIndex))
                     {
                         await _messaging.PrintError("Could not parse child index");
@@ -125,7 +124,7 @@ namespace ResoniteLink
 
                     break;
 
-                case "selectcomponent":
+                case CommandType.SelectComponent:
                     if (!int.TryParse(arguments, out var componentIndex))
                     {
                         await _messaging.PrintError("Could not parse component index");
@@ -141,11 +140,11 @@ namespace ResoniteLink
                     await SelectComponent(CurrentSlot.Components[componentIndex].ID);
                     break;
 
-                case "clearcomponent":
+                case CommandType.ClearComponent:
                     CurrentComponent = null;
                     break;
 
-                case "componentstate":
+                case CommandType.ComponentState:
                     await RefreshCurrent();
 
                     if (CurrentComponent == null)
@@ -154,10 +153,10 @@ namespace ResoniteLink
                         break;
                     }
 
-                    PrintComponentMembers();
+                    await PrintComponentMembers();
                     break;
 
-                case "addcomponent":
+                case CommandType.AddComponent:
                     if (string.IsNullOrWhiteSpace(arguments))
                     {
                         await _messaging.PrintError("You must provide type of the component");
@@ -172,7 +171,7 @@ namespace ResoniteLink
                         await _messaging.PrintLine($"Added! ID: {componentId}");
                     break;
 
-                case "addchild":
+                case CommandType.AddChild:
                     if(string.IsNullOrWhiteSpace(arguments))
                     {
                         await _messaging.PrintError("You must provide a name of the child");
@@ -187,11 +186,11 @@ namespace ResoniteLink
                         await _messaging.PrintLine($"Child added. ID: {childId}");
                     break;
 
-                case "removeslot":
+                case CommandType.RemoveSlot:
                     await RemoveCurrentSlot();
                     break;
 
-                case "removecomponent":
+                case CommandType.RemoveComponent:
                     string idToRemove;
 
                     if(string.IsNullOrWhiteSpace(arguments))
@@ -224,7 +223,7 @@ namespace ResoniteLink
                     await RemoveComponent(idToRemove);
                     break;
 
-                case "selectparent":
+                case CommandType.SelectParent:
                     if(CurrentSlot.Parent.TargetID == null)
                     {
                         await _messaging.PrintError("Root is topmost slot, cannot select parent");
@@ -235,14 +234,14 @@ namespace ResoniteLink
 
                     break;
 
-                case "set":
+                case CommandType.SetMember:
                     if(CurrentComponent == null)
                     {
                         await _messaging.PrintError("No component is selected");
                         break;
                     }
 
-                    SplitCommand(arguments, out var memberName, out var setValue);
+                    CommandParser.SplitCommand(arguments, out var memberName, out var setValue);
 
                     if(setValue == null)
                     {
@@ -253,7 +252,7 @@ namespace ResoniteLink
                     await SetMember(memberName, setValue);
                     break;
 
-                case "importtexture":
+                case CommandType.ImportTexture:
                     if(string.IsNullOrWhiteSpace(arguments))
                     {
                         Console.WriteLine("You must provide a path to the file");
@@ -271,12 +270,13 @@ namespace ResoniteLink
                     await ImportTexture(path);
                     break;
 
-                case "exit":
+                case CommandType.Exit:
                     // We stop processing
                     return false;
 
                 default:
-                    await _messaging.PrintError($"Unknown command: {keyword}");
+                    // Unknown command
+                    await _messaging.PrintError($"Unknown command: '{arguments}'");
                     break;
             }
 

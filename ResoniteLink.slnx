@@ -1,4 +1,5 @@
 <Solution>
   <Project Path="ResoniteLink.REPL/ResoniteLink.REPL.csproj" Id="ba37c6ff-0dec-4512-a64b-58f3acfa5950" />
+  <Project Path="ResoniteLink.Tests/ResoniteLink.Tests.csproj" />
   <Project Path="ResoniteLink/ResoniteLink.csproj" />
 </Solution>
