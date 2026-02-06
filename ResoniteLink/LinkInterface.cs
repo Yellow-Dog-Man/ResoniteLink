@@ -153,11 +153,11 @@ namespace ResoniteLink
         public Task<SlotData> GetSlotData(GetSlot request) => SendMessage<GetSlot, SlotData>(request);
         public Task<ComponentData> GetComponentData(GetComponent request) => SendMessage<GetComponent, ComponentData>(request);
 
-        public Task<Response> AddSlot(AddSlot request) => SendMessage<AddSlot, Response>(request);
+        public Task<NewEntityId> AddSlot(AddSlot request) => SendMessage<AddSlot, NewEntityId>(request);
         public Task<Response> UpdateSlot(UpdateSlot request) => SendMessage<UpdateSlot, Response>(request);
         public Task<Response> RemoveSlot(RemoveSlot request) => SendMessage<RemoveSlot, Response>(request);
 
-        public Task<Response> AddComponent(AddComponent request) => SendMessage<AddComponent, Response>(request);
+        public Task<NewEntityId> AddComponent(AddComponent request) => SendMessage<AddComponent, NewEntityId>(request);
         public Task<Response> UpdateComponent(UpdateComponent request) => SendMessage<UpdateComponent, Response>(request);
         public Task<Response> RemoveComponent(RemoveComponent request) => SendMessage<RemoveComponent, Response>(request);
 

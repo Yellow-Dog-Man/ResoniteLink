@@ -10,6 +10,7 @@ namespace ResoniteLink
     /// or contain response data when requested.
     /// </summary>
     [JsonDerivedType(typeof(Response), "response")]
+    [JsonDerivedType(typeof(NewEntityId), "newEntityId")]
     [JsonDerivedType(typeof(SlotData), "slotData")]
     [JsonDerivedType(typeof(ComponentData), "componentData")]
     [JsonDerivedType(typeof(AssetData), "assetData")]
