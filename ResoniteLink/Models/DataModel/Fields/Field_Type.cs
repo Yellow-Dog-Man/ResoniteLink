@@ -16,8 +16,10 @@ namespace ResoniteLink
         [JsonPropertyName("type")]
         public string Type { get; set; }
 
+        [JsonIgnore]
         public override object BoxedValue { get => Type; set => Type = value as string; }
 
+        [JsonIgnore]
         public override Type ValueType => typeof(Type);
     }
 
