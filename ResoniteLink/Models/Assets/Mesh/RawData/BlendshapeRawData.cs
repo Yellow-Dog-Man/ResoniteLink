@@ -5,7 +5,7 @@ using System.Text.Json.Serialization;
 
 namespace ResoniteLink
 {
-    public class BlendShapeRawData
+    public class BlendshapeRawData
     {
         /// <summary>
         /// Name of the Blendshape
@@ -30,7 +30,7 @@ namespace ResoniteLink
         /// Blendshapes need at least 1 frame
         /// </summary>
         [JsonPropertyName("frames")]
-        public List<BlendShapeFrameRawData> Frames { get; set; }
+        public List<BlendshapeFrameRawData> Frames { get; set; }
 
         internal void ComputeBufferOffsets(ImportMeshRawData mesh, ref int offset)
         {

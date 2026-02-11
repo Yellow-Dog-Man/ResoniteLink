@@ -5,7 +5,7 @@ using System.Text.Json.Serialization;
 
 namespace ResoniteLink
 {
-    public class BlendShapeFrameRawData
+    public class BlendshapeFrameRawData
     {
         /// <summary>
         /// Position of the frame within the blendshape animation
@@ -30,7 +30,7 @@ namespace ResoniteLink
         BufferSegment<float3> _normalDeltas;
         BufferSegment<float3> _tangentDeltas;
 
-        internal void ComputeBufferOffsets(ImportMeshRawData mesh, BlendShapeRawData blendshape, ref int offset)
+        internal void ComputeBufferOffsets(ImportMeshRawData mesh, BlendshapeRawData blendshape, ref int offset)
         {
             _positionDeltas = BufferSegment<float3>.AllocateBuffer(mesh.VertexCount, ref offset);
             _normalDeltas = BufferSegment<float3>.AllocateBuffer(blendshape.HasNormalDeltas ? mesh.VertexCount : 0, ref offset);
