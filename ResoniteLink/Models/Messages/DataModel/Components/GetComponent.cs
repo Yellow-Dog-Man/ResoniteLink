@@ -8,7 +8,7 @@ namespace ResoniteLink
     /// <summary>
     /// Request for full data of a particular component
     /// </summary>
-    public class GetComponent : Message
+    public class GetComponent : DataModelOperation
     {
         /// <summary>
         /// The ID of the component that's being fetched

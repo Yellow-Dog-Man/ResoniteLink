@@ -5,7 +5,7 @@ using System.Text.Json.Serialization;
 
 namespace ResoniteLink
 {
-    public class RemoveSlot : Message
+    public class RemoveSlot : DataModelOperation
     {
         /// <summary>
         /// The ID of the slot to remove.

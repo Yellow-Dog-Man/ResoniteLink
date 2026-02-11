@@ -5,7 +5,7 @@ using System.Text.Json.Serialization;
 
 namespace ResoniteLink
 {
-    public abstract class AddUpdateSlotData : Message
+    public abstract class AddUpdateSlotData : DataModelOperation
     {
         /// <summary>
         /// Data of the slot to set/update.

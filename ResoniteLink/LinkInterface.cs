@@ -7,6 +7,7 @@ using System.Collections.Concurrent;
 using System.Threading;
 using System.IO;
 using System.Text.Json;
+using System.Linq;
 
 namespace ResoniteLink
 {
@@ -113,6 +114,9 @@ namespace ResoniteLink
             where I : Message
             where O : Response
         {
+            // Validate it first before we do anything else
+            message.Validate();
+
             EnsureMessageID(message);
 
             var responseCompletion = new TaskCompletionSource<Response>();
@@ -190,6 +194,12 @@ namespace ResoniteLink
         public Task<EnumDefinitionData> GetEnumDefinition(GetEnumDefinition request) => SendMessage<GetEnumDefinition, EnumDefinitionData>(request);
         public Task<EnumDefinitionData> GetEnumDefinition(string typename) =>
             SendMessage<GetEnumDefinition, EnumDefinitionData>(new GetEnumDefinition() { Type = typename });
+
+        public Task<BatchResponse> RunDataModelOperationBatch(List<DataModelOperation> operations) =>
+            SendMessage<DataModelOperationBatch, BatchResponse>(new DataModelOperationBatch()
+            {
+                Operations = operations.ToList<Message>()
+            });
 
         #endregion
 
