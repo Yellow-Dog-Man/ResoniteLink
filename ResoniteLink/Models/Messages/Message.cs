@@ -10,6 +10,8 @@ namespace ResoniteLink
     /// </summary>
     [JsonDerivedType(typeof(RequestSessionData), "requestSessionData")]
 
+    [JsonDerivedType(typeof(DataModelOperationBatch), "dataModelOperationBatch")]
+
     [JsonDerivedType(typeof(GetSlot), "getSlot")]
     [JsonDerivedType(typeof(AddSlot), "addSlot")]
     [JsonDerivedType(typeof(UpdateSlot), "updateSlot")]
@@ -43,5 +45,11 @@ namespace ResoniteLink
         /// </summary>
         [JsonPropertyName("messageId")]
         public string MessageID { get; set; }
+
+        /// <summary>
+        /// Validates the message, which can catch fatal mistakes early before sending them over.
+        /// Derived classes can override this to provide validation logic specific to the type of the message.
+        /// </summary>
+        public virtual void Validate() { }
     }
 }

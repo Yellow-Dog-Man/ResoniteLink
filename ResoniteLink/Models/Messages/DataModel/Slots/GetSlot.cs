@@ -5,7 +5,7 @@ using System.Text.Json.Serialization;
 
 namespace ResoniteLink
 {
-    public class GetSlot : Message
+    public class GetSlot : DataModelOperation
     {
         /// <summary>
         /// Unique ID of the slot we're requesting data for.

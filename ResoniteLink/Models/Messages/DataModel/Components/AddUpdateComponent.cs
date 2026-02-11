@@ -5,7 +5,7 @@ using System.Text.Json.Serialization;
 
 namespace ResoniteLink
 {
-    public abstract class AddUpdateComponent : Message
+    public abstract class AddUpdateComponent : DataModelOperation
     {
         /// <summary>
         /// The state of the component data. Any members that are not included will be left as is.

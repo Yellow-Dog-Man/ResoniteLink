@@ -5,7 +5,7 @@ using System.Text.Json.Serialization;
 
 namespace ResoniteLink
 {
-    public class RemoveComponent : Message
+    public class RemoveComponent : DataModelOperation
     {
         /// <summary>
         /// The ID of the component that's being removed
