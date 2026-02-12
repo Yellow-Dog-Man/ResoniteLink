@@ -40,9 +40,10 @@ There are a few community projects built around or with ResoniteLink:
 
 ## JavaScript  <img alt="JavaScript programming language logo. JS letters on a bright coloured background." src="https://skillicons.dev/icons?i=js" width="16">
 
-| Repository                                                            | Description                                                           |
-|-----------------------------------------------------------------------|-----------------------------------------------------------------------|
-| [xhayper/ResoniteLink.js](https://github.com/xhayper/ResoniteLink.js) | A type-safe, easy to use JS wrapper for interacting with ResoniteLink |
+| Repository                                                            | Description                                                                                                      |
+|-----------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------|
+| [xhayper/ResoniteLink.js](https://github.com/xhayper/ResoniteLink.js) | A type-safe, easy to use JS wrapper for interacting with ResoniteLink                                            |
+| [eth0fox/tsrl](https://github.com/eth0fox/tsrl)                       | tsrl (TypeScript ResoniteLink) is a library for interacting with ResoniteLink in a JavaScript based application. |
 
 If you build something cool, let us know (just create an issue on this repository) with a link, and we'll add it when we can!
 
