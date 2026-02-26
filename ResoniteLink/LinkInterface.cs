@@ -124,7 +124,7 @@ namespace ResoniteLink
             if (!_pendingResponses.TryAdd(message.MessageID, responseCompletion))
                 throw new InvalidOperationException("Failed to register MessageID. Did you provide duplicate MessageID?");
 
-            var jsonData = System.Text.Json.JsonSerializer.SerializeToUtf8Bytes((Message)message);
+            var jsonData = System.Text.Json.JsonSerializer.SerializeToUtf8Bytes((Message)message, SerializationOptions);
 
             await _client.SendAsync(new ArraySegment<byte>(jsonData), 
                 WebSocketMessageType.Text, true, cancellation.Token);
