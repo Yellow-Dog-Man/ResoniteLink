@@ -126,8 +126,13 @@ namespace ResoniteLink
             public override Type ElementType => typeof(<#=type#>);
         }
 
+        public class SyncDictionary_<#=type#> : SyncDictionary<<#=type#>>
+        {
+        }
+
         [JsonDerivedType(typeof(Field_<#=type#>), "<#=type#>")]
         [JsonDerivedType(typeof(Array_<#=type#>), "<#=type#>[]")]
+        [JsonDerivedType(typeof(SyncDictionary_<#=type#>), "dictionary<<#=type#>>")]
         public partial class Member { }
 
         <#

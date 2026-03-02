@@ -32,8 +32,13 @@ namespace ResoniteLink
             public override Type ElementType => typeof(byte);
         }
 
+        public class SyncDictionary_byte : SyncDictionary<byte>
+        {
+        }
+
         [JsonDerivedType(typeof(Field_byte), "byte")]
         [JsonDerivedType(typeof(Array_byte), "byte[]")]
+        [JsonDerivedType(typeof(SyncDictionary_byte), "dictionary<byte>")]
         public partial class Member { }
 
                     public class Field_Nullable_byte : Field
@@ -73,8 +78,13 @@ namespace ResoniteLink
             public override Type ElementType => typeof(ushort);
         }
 
+        public class SyncDictionary_ushort : SyncDictionary<ushort>
+        {
+        }
+
         [JsonDerivedType(typeof(Field_ushort), "ushort")]
         [JsonDerivedType(typeof(Array_ushort), "ushort[]")]
+        [JsonDerivedType(typeof(SyncDictionary_ushort), "dictionary<ushort>")]
         public partial class Member { }
 
                     public class Field_Nullable_ushort : Field
@@ -114,8 +124,13 @@ namespace ResoniteLink
             public override Type ElementType => typeof(uint);
         }
 
+        public class SyncDictionary_uint : SyncDictionary<uint>
+        {
+        }
+
         [JsonDerivedType(typeof(Field_uint), "uint")]
         [JsonDerivedType(typeof(Array_uint), "uint[]")]
+        [JsonDerivedType(typeof(SyncDictionary_uint), "dictionary<uint>")]
         public partial class Member { }
 
                     public class Field_Nullable_uint : Field
@@ -155,8 +170,13 @@ namespace ResoniteLink
             public override Type ElementType => typeof(ulong);
         }
 
+        public class SyncDictionary_ulong : SyncDictionary<ulong>
+        {
+        }
+
         [JsonDerivedType(typeof(Field_ulong), "ulong")]
         [JsonDerivedType(typeof(Array_ulong), "ulong[]")]
+        [JsonDerivedType(typeof(SyncDictionary_ulong), "dictionary<ulong>")]
         public partial class Member { }
 
                     public class Field_Nullable_ulong : Field
@@ -196,8 +216,13 @@ namespace ResoniteLink
             public override Type ElementType => typeof(sbyte);
         }
 
+        public class SyncDictionary_sbyte : SyncDictionary<sbyte>
+        {
+        }
+
         [JsonDerivedType(typeof(Field_sbyte), "sbyte")]
         [JsonDerivedType(typeof(Array_sbyte), "sbyte[]")]
+        [JsonDerivedType(typeof(SyncDictionary_sbyte), "dictionary<sbyte>")]
         public partial class Member { }
 
                     public class Field_Nullable_sbyte : Field
@@ -237,8 +262,13 @@ namespace ResoniteLink
             public override Type ElementType => typeof(short);
         }
 
+        public class SyncDictionary_short : SyncDictionary<short>
+        {
+        }
+
         [JsonDerivedType(typeof(Field_short), "short")]
         [JsonDerivedType(typeof(Array_short), "short[]")]
+        [JsonDerivedType(typeof(SyncDictionary_short), "dictionary<short>")]
         public partial class Member { }
 
                     public class Field_Nullable_short : Field
@@ -278,8 +308,13 @@ namespace ResoniteLink
             public override Type ElementType => typeof(int);
         }
 
+        public class SyncDictionary_int : SyncDictionary<int>
+        {
+        }
+
         [JsonDerivedType(typeof(Field_int), "int")]
         [JsonDerivedType(typeof(Array_int), "int[]")]
+        [JsonDerivedType(typeof(SyncDictionary_int), "dictionary<int>")]
         public partial class Member { }
 
                     public class Field_Nullable_int : Field
@@ -319,8 +354,13 @@ namespace ResoniteLink
             public override Type ElementType => typeof(long);
         }
 
+        public class SyncDictionary_long : SyncDictionary<long>
+        {
+        }
+
         [JsonDerivedType(typeof(Field_long), "long")]
         [JsonDerivedType(typeof(Array_long), "long[]")]
+        [JsonDerivedType(typeof(SyncDictionary_long), "dictionary<long>")]
         public partial class Member { }
 
                     public class Field_Nullable_long : Field
@@ -360,8 +400,13 @@ namespace ResoniteLink
             public override Type ElementType => typeof(float);
         }
 
+        public class SyncDictionary_float : SyncDictionary<float>
+        {
+        }
+
         [JsonDerivedType(typeof(Field_float), "float")]
         [JsonDerivedType(typeof(Array_float), "float[]")]
+        [JsonDerivedType(typeof(SyncDictionary_float), "dictionary<float>")]
         public partial class Member { }
 
                     public class Field_Nullable_float : Field
@@ -401,8 +446,13 @@ namespace ResoniteLink
             public override Type ElementType => typeof(double);
         }
 
+        public class SyncDictionary_double : SyncDictionary<double>
+        {
+        }
+
         [JsonDerivedType(typeof(Field_double), "double")]
         [JsonDerivedType(typeof(Array_double), "double[]")]
+        [JsonDerivedType(typeof(SyncDictionary_double), "dictionary<double>")]
         public partial class Member { }
 
                     public class Field_Nullable_double : Field
@@ -442,8 +492,13 @@ namespace ResoniteLink
             public override Type ElementType => typeof(decimal);
         }
 
+        public class SyncDictionary_decimal : SyncDictionary<decimal>
+        {
+        }
+
         [JsonDerivedType(typeof(Field_decimal), "decimal")]
         [JsonDerivedType(typeof(Array_decimal), "decimal[]")]
+        [JsonDerivedType(typeof(SyncDictionary_decimal), "dictionary<decimal>")]
         public partial class Member { }
 
                     public class Field_Nullable_decimal : Field
@@ -483,8 +538,13 @@ namespace ResoniteLink
             public override Type ElementType => typeof(bool);
         }
 
+        public class SyncDictionary_bool : SyncDictionary<bool>
+        {
+        }
+
         [JsonDerivedType(typeof(Field_bool), "bool")]
         [JsonDerivedType(typeof(Array_bool), "bool[]")]
+        [JsonDerivedType(typeof(SyncDictionary_bool), "dictionary<bool>")]
         public partial class Member { }
 
                     public class Field_Nullable_bool : Field
@@ -524,8 +584,13 @@ namespace ResoniteLink
             public override Type ElementType => typeof(char);
         }
 
+        public class SyncDictionary_char : SyncDictionary<char>
+        {
+        }
+
         [JsonDerivedType(typeof(Field_char), "char")]
         [JsonDerivedType(typeof(Array_char), "char[]")]
+        [JsonDerivedType(typeof(SyncDictionary_char), "dictionary<char>")]
         public partial class Member { }
 
                     public class Field_Nullable_char : Field
@@ -565,8 +630,13 @@ namespace ResoniteLink
             public override Type ElementType => typeof(string);
         }
 
+        public class SyncDictionary_string : SyncDictionary<string>
+        {
+        }
+
         [JsonDerivedType(typeof(Field_string), "string")]
         [JsonDerivedType(typeof(Array_string), "string[]")]
+        [JsonDerivedType(typeof(SyncDictionary_string), "dictionary<string>")]
         public partial class Member { }
 
         
@@ -592,8 +662,13 @@ namespace ResoniteLink
             public override Type ElementType => typeof(Uri);
         }
 
+        public class SyncDictionary_Uri : SyncDictionary<Uri>
+        {
+        }
+
         [JsonDerivedType(typeof(Field_Uri), "Uri")]
         [JsonDerivedType(typeof(Array_Uri), "Uri[]")]
+        [JsonDerivedType(typeof(SyncDictionary_Uri), "dictionary<Uri>")]
         public partial class Member { }
 
         
@@ -619,8 +694,13 @@ namespace ResoniteLink
             public override Type ElementType => typeof(DateTime);
         }
 
+        public class SyncDictionary_DateTime : SyncDictionary<DateTime>
+        {
+        }
+
         [JsonDerivedType(typeof(Field_DateTime), "DateTime")]
         [JsonDerivedType(typeof(Array_DateTime), "DateTime[]")]
+        [JsonDerivedType(typeof(SyncDictionary_DateTime), "dictionary<DateTime>")]
         public partial class Member { }
 
                     public class Field_Nullable_DateTime : Field
@@ -660,8 +740,13 @@ namespace ResoniteLink
             public override Type ElementType => typeof(TimeSpan);
         }
 
+        public class SyncDictionary_TimeSpan : SyncDictionary<TimeSpan>
+        {
+        }
+
         [JsonDerivedType(typeof(Field_TimeSpan), "TimeSpan")]
         [JsonDerivedType(typeof(Array_TimeSpan), "TimeSpan[]")]
+        [JsonDerivedType(typeof(SyncDictionary_TimeSpan), "dictionary<TimeSpan>")]
         public partial class Member { }
 
                     public class Field_Nullable_TimeSpan : Field
@@ -701,8 +786,13 @@ namespace ResoniteLink
             public override Type ElementType => typeof(color);
         }
 
+        public class SyncDictionary_color : SyncDictionary<color>
+        {
+        }
+
         [JsonDerivedType(typeof(Field_color), "color")]
         [JsonDerivedType(typeof(Array_color), "color[]")]
+        [JsonDerivedType(typeof(SyncDictionary_color), "dictionary<color>")]
         public partial class Member { }
 
                     public class Field_Nullable_color : Field
@@ -742,8 +832,13 @@ namespace ResoniteLink
             public override Type ElementType => typeof(colorX);
         }
 
+        public class SyncDictionary_colorX : SyncDictionary<colorX>
+        {
+        }
+
         [JsonDerivedType(typeof(Field_colorX), "colorX")]
         [JsonDerivedType(typeof(Array_colorX), "colorX[]")]
+        [JsonDerivedType(typeof(SyncDictionary_colorX), "dictionary<colorX>")]
         public partial class Member { }
 
                     public class Field_Nullable_colorX : Field
@@ -783,8 +878,13 @@ namespace ResoniteLink
             public override Type ElementType => typeof(color32);
         }
 
+        public class SyncDictionary_color32 : SyncDictionary<color32>
+        {
+        }
+
         [JsonDerivedType(typeof(Field_color32), "color32")]
         [JsonDerivedType(typeof(Array_color32), "color32[]")]
+        [JsonDerivedType(typeof(SyncDictionary_color32), "dictionary<color32>")]
         public partial class Member { }
 
                     public class Field_Nullable_color32 : Field
@@ -824,8 +924,13 @@ namespace ResoniteLink
             public override Type ElementType => typeof(Rect);
         }
 
+        public class SyncDictionary_Rect : SyncDictionary<Rect>
+        {
+        }
+
         [JsonDerivedType(typeof(Field_Rect), "Rect")]
         [JsonDerivedType(typeof(Array_Rect), "Rect[]")]
+        [JsonDerivedType(typeof(SyncDictionary_Rect), "dictionary<Rect>")]
         public partial class Member { }
 
                     public class Field_Nullable_Rect : Field
@@ -865,8 +970,13 @@ namespace ResoniteLink
             public override Type ElementType => typeof(IntRect);
         }
 
+        public class SyncDictionary_IntRect : SyncDictionary<IntRect>
+        {
+        }
+
         [JsonDerivedType(typeof(Field_IntRect), "IntRect")]
         [JsonDerivedType(typeof(Array_IntRect), "IntRect[]")]
+        [JsonDerivedType(typeof(SyncDictionary_IntRect), "dictionary<IntRect>")]
         public partial class Member { }
 
                     public class Field_Nullable_IntRect : Field
@@ -906,8 +1016,13 @@ namespace ResoniteLink
             public override Type ElementType => typeof(BoundingBox);
         }
 
+        public class SyncDictionary_BoundingBox : SyncDictionary<BoundingBox>
+        {
+        }
+
         [JsonDerivedType(typeof(Field_BoundingBox), "BoundingBox")]
         [JsonDerivedType(typeof(Array_BoundingBox), "BoundingBox[]")]
+        [JsonDerivedType(typeof(SyncDictionary_BoundingBox), "dictionary<BoundingBox>")]
         public partial class Member { }
 
                     public class Field_Nullable_BoundingBox : Field
@@ -947,8 +1062,13 @@ namespace ResoniteLink
             public override Type ElementType => typeof(float2);
         }
 
+        public class SyncDictionary_float2 : SyncDictionary<float2>
+        {
+        }
+
         [JsonDerivedType(typeof(Field_float2), "float2")]
         [JsonDerivedType(typeof(Array_float2), "float2[]")]
+        [JsonDerivedType(typeof(SyncDictionary_float2), "dictionary<float2>")]
         public partial class Member { }
 
                     public class Field_Nullable_float2 : Field
@@ -988,8 +1108,13 @@ namespace ResoniteLink
             public override Type ElementType => typeof(double2);
         }
 
+        public class SyncDictionary_double2 : SyncDictionary<double2>
+        {
+        }
+
         [JsonDerivedType(typeof(Field_double2), "double2")]
         [JsonDerivedType(typeof(Array_double2), "double2[]")]
+        [JsonDerivedType(typeof(SyncDictionary_double2), "dictionary<double2>")]
         public partial class Member { }
 
                     public class Field_Nullable_double2 : Field
@@ -1029,8 +1154,13 @@ namespace ResoniteLink
             public override Type ElementType => typeof(byte2);
         }
 
+        public class SyncDictionary_byte2 : SyncDictionary<byte2>
+        {
+        }
+
         [JsonDerivedType(typeof(Field_byte2), "byte2")]
         [JsonDerivedType(typeof(Array_byte2), "byte2[]")]
+        [JsonDerivedType(typeof(SyncDictionary_byte2), "dictionary<byte2>")]
         public partial class Member { }
 
                     public class Field_Nullable_byte2 : Field
@@ -1070,8 +1200,13 @@ namespace ResoniteLink
             public override Type ElementType => typeof(ushort2);
         }
 
+        public class SyncDictionary_ushort2 : SyncDictionary<ushort2>
+        {
+        }
+
         [JsonDerivedType(typeof(Field_ushort2), "ushort2")]
         [JsonDerivedType(typeof(Array_ushort2), "ushort2[]")]
+        [JsonDerivedType(typeof(SyncDictionary_ushort2), "dictionary<ushort2>")]
         public partial class Member { }
 
                     public class Field_Nullable_ushort2 : Field
@@ -1111,8 +1246,13 @@ namespace ResoniteLink
             public override Type ElementType => typeof(uint2);
         }
 
+        public class SyncDictionary_uint2 : SyncDictionary<uint2>
+        {
+        }
+
         [JsonDerivedType(typeof(Field_uint2), "uint2")]
         [JsonDerivedType(typeof(Array_uint2), "uint2[]")]
+        [JsonDerivedType(typeof(SyncDictionary_uint2), "dictionary<uint2>")]
         public partial class Member { }
 
                     public class Field_Nullable_uint2 : Field
@@ -1152,8 +1292,13 @@ namespace ResoniteLink
             public override Type ElementType => typeof(ulong2);
         }
 
+        public class SyncDictionary_ulong2 : SyncDictionary<ulong2>
+        {
+        }
+
         [JsonDerivedType(typeof(Field_ulong2), "ulong2")]
         [JsonDerivedType(typeof(Array_ulong2), "ulong2[]")]
+        [JsonDerivedType(typeof(SyncDictionary_ulong2), "dictionary<ulong2>")]
         public partial class Member { }
 
                     public class Field_Nullable_ulong2 : Field
@@ -1193,8 +1338,13 @@ namespace ResoniteLink
             public override Type ElementType => typeof(sbyte2);
         }
 
+        public class SyncDictionary_sbyte2 : SyncDictionary<sbyte2>
+        {
+        }
+
         [JsonDerivedType(typeof(Field_sbyte2), "sbyte2")]
         [JsonDerivedType(typeof(Array_sbyte2), "sbyte2[]")]
+        [JsonDerivedType(typeof(SyncDictionary_sbyte2), "dictionary<sbyte2>")]
         public partial class Member { }
 
                     public class Field_Nullable_sbyte2 : Field
@@ -1234,8 +1384,13 @@ namespace ResoniteLink
             public override Type ElementType => typeof(short2);
         }
 
+        public class SyncDictionary_short2 : SyncDictionary<short2>
+        {
+        }
+
         [JsonDerivedType(typeof(Field_short2), "short2")]
         [JsonDerivedType(typeof(Array_short2), "short2[]")]
+        [JsonDerivedType(typeof(SyncDictionary_short2), "dictionary<short2>")]
         public partial class Member { }
 
                     public class Field_Nullable_short2 : Field
@@ -1275,8 +1430,13 @@ namespace ResoniteLink
             public override Type ElementType => typeof(int2);
         }
 
+        public class SyncDictionary_int2 : SyncDictionary<int2>
+        {
+        }
+
         [JsonDerivedType(typeof(Field_int2), "int2")]
         [JsonDerivedType(typeof(Array_int2), "int2[]")]
+        [JsonDerivedType(typeof(SyncDictionary_int2), "dictionary<int2>")]
         public partial class Member { }
 
                     public class Field_Nullable_int2 : Field
@@ -1316,8 +1476,13 @@ namespace ResoniteLink
             public override Type ElementType => typeof(long2);
         }
 
+        public class SyncDictionary_long2 : SyncDictionary<long2>
+        {
+        }
+
         [JsonDerivedType(typeof(Field_long2), "long2")]
         [JsonDerivedType(typeof(Array_long2), "long2[]")]
+        [JsonDerivedType(typeof(SyncDictionary_long2), "dictionary<long2>")]
         public partial class Member { }
 
                     public class Field_Nullable_long2 : Field
@@ -1357,8 +1522,13 @@ namespace ResoniteLink
             public override Type ElementType => typeof(bool2);
         }
 
+        public class SyncDictionary_bool2 : SyncDictionary<bool2>
+        {
+        }
+
         [JsonDerivedType(typeof(Field_bool2), "bool2")]
         [JsonDerivedType(typeof(Array_bool2), "bool2[]")]
+        [JsonDerivedType(typeof(SyncDictionary_bool2), "dictionary<bool2>")]
         public partial class Member { }
 
                     public class Field_Nullable_bool2 : Field
@@ -1398,8 +1568,13 @@ namespace ResoniteLink
             public override Type ElementType => typeof(float3);
         }
 
+        public class SyncDictionary_float3 : SyncDictionary<float3>
+        {
+        }
+
         [JsonDerivedType(typeof(Field_float3), "float3")]
         [JsonDerivedType(typeof(Array_float3), "float3[]")]
+        [JsonDerivedType(typeof(SyncDictionary_float3), "dictionary<float3>")]
         public partial class Member { }
 
                     public class Field_Nullable_float3 : Field
@@ -1439,8 +1614,13 @@ namespace ResoniteLink
             public override Type ElementType => typeof(double3);
         }
 
+        public class SyncDictionary_double3 : SyncDictionary<double3>
+        {
+        }
+
         [JsonDerivedType(typeof(Field_double3), "double3")]
         [JsonDerivedType(typeof(Array_double3), "double3[]")]
+        [JsonDerivedType(typeof(SyncDictionary_double3), "dictionary<double3>")]
         public partial class Member { }
 
                     public class Field_Nullable_double3 : Field
@@ -1480,8 +1660,13 @@ namespace ResoniteLink
             public override Type ElementType => typeof(byte3);
         }
 
+        public class SyncDictionary_byte3 : SyncDictionary<byte3>
+        {
+        }
+
         [JsonDerivedType(typeof(Field_byte3), "byte3")]
         [JsonDerivedType(typeof(Array_byte3), "byte3[]")]
+        [JsonDerivedType(typeof(SyncDictionary_byte3), "dictionary<byte3>")]
         public partial class Member { }
 
                     public class Field_Nullable_byte3 : Field
@@ -1521,8 +1706,13 @@ namespace ResoniteLink
             public override Type ElementType => typeof(ushort3);
         }
 
+        public class SyncDictionary_ushort3 : SyncDictionary<ushort3>
+        {
+        }
+
         [JsonDerivedType(typeof(Field_ushort3), "ushort3")]
         [JsonDerivedType(typeof(Array_ushort3), "ushort3[]")]
+        [JsonDerivedType(typeof(SyncDictionary_ushort3), "dictionary<ushort3>")]
         public partial class Member { }
 
                     public class Field_Nullable_ushort3 : Field
@@ -1562,8 +1752,13 @@ namespace ResoniteLink
             public override Type ElementType => typeof(uint3);
         }
 
+        public class SyncDictionary_uint3 : SyncDictionary<uint3>
+        {
+        }
+
         [JsonDerivedType(typeof(Field_uint3), "uint3")]
         [JsonDerivedType(typeof(Array_uint3), "uint3[]")]
+        [JsonDerivedType(typeof(SyncDictionary_uint3), "dictionary<uint3>")]
         public partial class Member { }
 
                     public class Field_Nullable_uint3 : Field
@@ -1603,8 +1798,13 @@ namespace ResoniteLink
             public override Type ElementType => typeof(ulong3);
         }
 
+        public class SyncDictionary_ulong3 : SyncDictionary<ulong3>
+        {
+        }
+
         [JsonDerivedType(typeof(Field_ulong3), "ulong3")]
         [JsonDerivedType(typeof(Array_ulong3), "ulong3[]")]
+        [JsonDerivedType(typeof(SyncDictionary_ulong3), "dictionary<ulong3>")]
         public partial class Member { }
 
                     public class Field_Nullable_ulong3 : Field
@@ -1644,8 +1844,13 @@ namespace ResoniteLink
             public override Type ElementType => typeof(sbyte3);
         }
 
+        public class SyncDictionary_sbyte3 : SyncDictionary<sbyte3>
+        {
+        }
+
         [JsonDerivedType(typeof(Field_sbyte3), "sbyte3")]
         [JsonDerivedType(typeof(Array_sbyte3), "sbyte3[]")]
+        [JsonDerivedType(typeof(SyncDictionary_sbyte3), "dictionary<sbyte3>")]
         public partial class Member { }
 
                     public class Field_Nullable_sbyte3 : Field
@@ -1685,8 +1890,13 @@ namespace ResoniteLink
             public override Type ElementType => typeof(short3);
         }
 
+        public class SyncDictionary_short3 : SyncDictionary<short3>
+        {
+        }
+
         [JsonDerivedType(typeof(Field_short3), "short3")]
         [JsonDerivedType(typeof(Array_short3), "short3[]")]
+        [JsonDerivedType(typeof(SyncDictionary_short3), "dictionary<short3>")]
         public partial class Member { }
 
                     public class Field_Nullable_short3 : Field
@@ -1726,8 +1936,13 @@ namespace ResoniteLink
             public override Type ElementType => typeof(int3);
         }
 
+        public class SyncDictionary_int3 : SyncDictionary<int3>
+        {
+        }
+
         [JsonDerivedType(typeof(Field_int3), "int3")]
         [JsonDerivedType(typeof(Array_int3), "int3[]")]
+        [JsonDerivedType(typeof(SyncDictionary_int3), "dictionary<int3>")]
         public partial class Member { }
 
                     public class Field_Nullable_int3 : Field
@@ -1767,8 +1982,13 @@ namespace ResoniteLink
             public override Type ElementType => typeof(long3);
         }
 
+        public class SyncDictionary_long3 : SyncDictionary<long3>
+        {
+        }
+
         [JsonDerivedType(typeof(Field_long3), "long3")]
         [JsonDerivedType(typeof(Array_long3), "long3[]")]
+        [JsonDerivedType(typeof(SyncDictionary_long3), "dictionary<long3>")]
         public partial class Member { }
 
                     public class Field_Nullable_long3 : Field
@@ -1808,8 +2028,13 @@ namespace ResoniteLink
             public override Type ElementType => typeof(bool3);
         }
 
+        public class SyncDictionary_bool3 : SyncDictionary<bool3>
+        {
+        }
+
         [JsonDerivedType(typeof(Field_bool3), "bool3")]
         [JsonDerivedType(typeof(Array_bool3), "bool3[]")]
+        [JsonDerivedType(typeof(SyncDictionary_bool3), "dictionary<bool3>")]
         public partial class Member { }
 
                     public class Field_Nullable_bool3 : Field
@@ -1849,8 +2074,13 @@ namespace ResoniteLink
             public override Type ElementType => typeof(float4);
         }
 
+        public class SyncDictionary_float4 : SyncDictionary<float4>
+        {
+        }
+
         [JsonDerivedType(typeof(Field_float4), "float4")]
         [JsonDerivedType(typeof(Array_float4), "float4[]")]
+        [JsonDerivedType(typeof(SyncDictionary_float4), "dictionary<float4>")]
         public partial class Member { }
 
                     public class Field_Nullable_float4 : Field
@@ -1890,8 +2120,13 @@ namespace ResoniteLink
             public override Type ElementType => typeof(double4);
         }
 
+        public class SyncDictionary_double4 : SyncDictionary<double4>
+        {
+        }
+
         [JsonDerivedType(typeof(Field_double4), "double4")]
         [JsonDerivedType(typeof(Array_double4), "double4[]")]
+        [JsonDerivedType(typeof(SyncDictionary_double4), "dictionary<double4>")]
         public partial class Member { }
 
                     public class Field_Nullable_double4 : Field
@@ -1931,8 +2166,13 @@ namespace ResoniteLink
             public override Type ElementType => typeof(byte4);
         }
 
+        public class SyncDictionary_byte4 : SyncDictionary<byte4>
+        {
+        }
+
         [JsonDerivedType(typeof(Field_byte4), "byte4")]
         [JsonDerivedType(typeof(Array_byte4), "byte4[]")]
+        [JsonDerivedType(typeof(SyncDictionary_byte4), "dictionary<byte4>")]
         public partial class Member { }
 
                     public class Field_Nullable_byte4 : Field
@@ -1972,8 +2212,13 @@ namespace ResoniteLink
             public override Type ElementType => typeof(ushort4);
         }
 
+        public class SyncDictionary_ushort4 : SyncDictionary<ushort4>
+        {
+        }
+
         [JsonDerivedType(typeof(Field_ushort4), "ushort4")]
         [JsonDerivedType(typeof(Array_ushort4), "ushort4[]")]
+        [JsonDerivedType(typeof(SyncDictionary_ushort4), "dictionary<ushort4>")]
         public partial class Member { }
 
                     public class Field_Nullable_ushort4 : Field
@@ -2013,8 +2258,13 @@ namespace ResoniteLink
             public override Type ElementType => typeof(uint4);
         }
 
+        public class SyncDictionary_uint4 : SyncDictionary<uint4>
+        {
+        }
+
         [JsonDerivedType(typeof(Field_uint4), "uint4")]
         [JsonDerivedType(typeof(Array_uint4), "uint4[]")]
+        [JsonDerivedType(typeof(SyncDictionary_uint4), "dictionary<uint4>")]
         public partial class Member { }
 
                     public class Field_Nullable_uint4 : Field
@@ -2054,8 +2304,13 @@ namespace ResoniteLink
             public override Type ElementType => typeof(ulong4);
         }
 
+        public class SyncDictionary_ulong4 : SyncDictionary<ulong4>
+        {
+        }
+
         [JsonDerivedType(typeof(Field_ulong4), "ulong4")]
         [JsonDerivedType(typeof(Array_ulong4), "ulong4[]")]
+        [JsonDerivedType(typeof(SyncDictionary_ulong4), "dictionary<ulong4>")]
         public partial class Member { }
 
                     public class Field_Nullable_ulong4 : Field
@@ -2095,8 +2350,13 @@ namespace ResoniteLink
             public override Type ElementType => typeof(sbyte4);
         }
 
+        public class SyncDictionary_sbyte4 : SyncDictionary<sbyte4>
+        {
+        }
+
         [JsonDerivedType(typeof(Field_sbyte4), "sbyte4")]
         [JsonDerivedType(typeof(Array_sbyte4), "sbyte4[]")]
+        [JsonDerivedType(typeof(SyncDictionary_sbyte4), "dictionary<sbyte4>")]
         public partial class Member { }
 
                     public class Field_Nullable_sbyte4 : Field
@@ -2136,8 +2396,13 @@ namespace ResoniteLink
             public override Type ElementType => typeof(short4);
         }
 
+        public class SyncDictionary_short4 : SyncDictionary<short4>
+        {
+        }
+
         [JsonDerivedType(typeof(Field_short4), "short4")]
         [JsonDerivedType(typeof(Array_short4), "short4[]")]
+        [JsonDerivedType(typeof(SyncDictionary_short4), "dictionary<short4>")]
         public partial class Member { }
 
                     public class Field_Nullable_short4 : Field
@@ -2177,8 +2442,13 @@ namespace ResoniteLink
             public override Type ElementType => typeof(int4);
         }
 
+        public class SyncDictionary_int4 : SyncDictionary<int4>
+        {
+        }
+
         [JsonDerivedType(typeof(Field_int4), "int4")]
         [JsonDerivedType(typeof(Array_int4), "int4[]")]
+        [JsonDerivedType(typeof(SyncDictionary_int4), "dictionary<int4>")]
         public partial class Member { }
 
                     public class Field_Nullable_int4 : Field
@@ -2218,8 +2488,13 @@ namespace ResoniteLink
             public override Type ElementType => typeof(long4);
         }
 
+        public class SyncDictionary_long4 : SyncDictionary<long4>
+        {
+        }
+
         [JsonDerivedType(typeof(Field_long4), "long4")]
         [JsonDerivedType(typeof(Array_long4), "long4[]")]
+        [JsonDerivedType(typeof(SyncDictionary_long4), "dictionary<long4>")]
         public partial class Member { }
 
                     public class Field_Nullable_long4 : Field
@@ -2259,8 +2534,13 @@ namespace ResoniteLink
             public override Type ElementType => typeof(bool4);
         }
 
+        public class SyncDictionary_bool4 : SyncDictionary<bool4>
+        {
+        }
+
         [JsonDerivedType(typeof(Field_bool4), "bool4")]
         [JsonDerivedType(typeof(Array_bool4), "bool4[]")]
+        [JsonDerivedType(typeof(SyncDictionary_bool4), "dictionary<bool4>")]
         public partial class Member { }
 
                     public class Field_Nullable_bool4 : Field
@@ -2300,8 +2580,13 @@ namespace ResoniteLink
             public override Type ElementType => typeof(floatQ);
         }
 
+        public class SyncDictionary_floatQ : SyncDictionary<floatQ>
+        {
+        }
+
         [JsonDerivedType(typeof(Field_floatQ), "floatQ")]
         [JsonDerivedType(typeof(Array_floatQ), "floatQ[]")]
+        [JsonDerivedType(typeof(SyncDictionary_floatQ), "dictionary<floatQ>")]
         public partial class Member { }
 
                     public class Field_Nullable_floatQ : Field
@@ -2341,8 +2626,13 @@ namespace ResoniteLink
             public override Type ElementType => typeof(doubleQ);
         }
 
+        public class SyncDictionary_doubleQ : SyncDictionary<doubleQ>
+        {
+        }
+
         [JsonDerivedType(typeof(Field_doubleQ), "doubleQ")]
         [JsonDerivedType(typeof(Array_doubleQ), "doubleQ[]")]
+        [JsonDerivedType(typeof(SyncDictionary_doubleQ), "dictionary<doubleQ>")]
         public partial class Member { }
 
                     public class Field_Nullable_doubleQ : Field
@@ -2382,8 +2672,13 @@ namespace ResoniteLink
             public override Type ElementType => typeof(float2x2);
         }
 
+        public class SyncDictionary_float2x2 : SyncDictionary<float2x2>
+        {
+        }
+
         [JsonDerivedType(typeof(Field_float2x2), "float2x2")]
         [JsonDerivedType(typeof(Array_float2x2), "float2x2[]")]
+        [JsonDerivedType(typeof(SyncDictionary_float2x2), "dictionary<float2x2>")]
         public partial class Member { }
 
                     public class Field_Nullable_float2x2 : Field
@@ -2423,8 +2718,13 @@ namespace ResoniteLink
             public override Type ElementType => typeof(double2x2);
         }
 
+        public class SyncDictionary_double2x2 : SyncDictionary<double2x2>
+        {
+        }
+
         [JsonDerivedType(typeof(Field_double2x2), "double2x2")]
         [JsonDerivedType(typeof(Array_double2x2), "double2x2[]")]
+        [JsonDerivedType(typeof(SyncDictionary_double2x2), "dictionary<double2x2>")]
         public partial class Member { }
 
                     public class Field_Nullable_double2x2 : Field
@@ -2464,8 +2764,13 @@ namespace ResoniteLink
             public override Type ElementType => typeof(float3x3);
         }
 
+        public class SyncDictionary_float3x3 : SyncDictionary<float3x3>
+        {
+        }
+
         [JsonDerivedType(typeof(Field_float3x3), "float3x3")]
         [JsonDerivedType(typeof(Array_float3x3), "float3x3[]")]
+        [JsonDerivedType(typeof(SyncDictionary_float3x3), "dictionary<float3x3>")]
         public partial class Member { }
 
                     public class Field_Nullable_float3x3 : Field
@@ -2505,8 +2810,13 @@ namespace ResoniteLink
             public override Type ElementType => typeof(double3x3);
         }
 
+        public class SyncDictionary_double3x3 : SyncDictionary<double3x3>
+        {
+        }
+
         [JsonDerivedType(typeof(Field_double3x3), "double3x3")]
         [JsonDerivedType(typeof(Array_double3x3), "double3x3[]")]
+        [JsonDerivedType(typeof(SyncDictionary_double3x3), "dictionary<double3x3>")]
         public partial class Member { }
 
                     public class Field_Nullable_double3x3 : Field
@@ -2546,8 +2856,13 @@ namespace ResoniteLink
             public override Type ElementType => typeof(float4x4);
         }
 
+        public class SyncDictionary_float4x4 : SyncDictionary<float4x4>
+        {
+        }
+
         [JsonDerivedType(typeof(Field_float4x4), "float4x4")]
         [JsonDerivedType(typeof(Array_float4x4), "float4x4[]")]
+        [JsonDerivedType(typeof(SyncDictionary_float4x4), "dictionary<float4x4>")]
         public partial class Member { }
 
                     public class Field_Nullable_float4x4 : Field
@@ -2587,8 +2902,13 @@ namespace ResoniteLink
             public override Type ElementType => typeof(double4x4);
         }
 
+        public class SyncDictionary_double4x4 : SyncDictionary<double4x4>
+        {
+        }
+
         [JsonDerivedType(typeof(Field_double4x4), "double4x4")]
         [JsonDerivedType(typeof(Array_double4x4), "double4x4[]")]
+        [JsonDerivedType(typeof(SyncDictionary_double4x4), "dictionary<double4x4>")]
         public partial class Member { }
 
                     public class Field_Nullable_double4x4 : Field
