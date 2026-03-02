@@ -101,13 +101,18 @@ namespace ResoniteLink
                 FailureException = ex;
             }
 
-            if(_client.State == WebSocketState.Open)
-                await _client.CloseAsync(FailureException == null ?
-                    WebSocketCloseStatus.NormalClosure :
-                    WebSocketCloseStatus.InternalServerError, 
-                    FailureException == null ? "Closing" : "Internal Error", cancellation.Token);
-
-            _client.Dispose();
+            try
+            {
+                if (_client.State == WebSocketState.Open)
+                    await _client.CloseAsync(FailureException == null ?
+                        WebSocketCloseStatus.NormalClosure :
+                        WebSocketCloseStatus.InternalServerError,
+                        FailureException == null ? "Closing" : "Internal Error", cancellation.Token);
+            }
+            finally
+            {
+                _client.Dispose();
+            }
         }
 
         async Task<O> SendMessage<I,O>(I message)
@@ -215,7 +220,10 @@ namespace ResoniteLink
 
             // Cancel all the pending responses
             foreach (var pending in _pendingResponses)
-                pending.Value.TrySetCanceled();
+                if (FailureException != null)
+                    pending.Value.SetException(FailureException);
+                else
+                    pending.Value.TrySetCanceled();
         }
     }
 }
