@@ -135,6 +135,15 @@ namespace ResoniteLink
         [JsonDerivedType(typeof(SyncDictionary_<#=type#>), "dictionary<<#=type#>>")]
         public partial class Member { }
 
+        public class Data_<#=type#> : Data
+        {
+            [JsonPropertyName("value")]
+            public <#=type#> Value { get; set; }
+        }
+
+        [JsonDerivedType(typeof(Data_<#=type#>), "<#=type#>")]
+        public partial class Data { }
+
         <#
         if(!nonNullableTypes.Contains(type))
         {
@@ -153,6 +162,15 @@ namespace ResoniteLink
 
             [JsonDerivedType(typeof(Field_Nullable_<#=type#>), "<#=type#>?")]
             public partial class Member { }
+
+            public class Data_Nullable_<#=type#> : Data
+            {
+                [JsonPropertyName("value")]
+                public <#=type#>? Value { get; set; }
+            }
+
+            [JsonDerivedType(typeof(Data_Nullable_<#=type#>), "<#=type#>?")]
+            public partial class Data { }
             <#
         }
         #>
