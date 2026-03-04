@@ -13,7 +13,6 @@ namespace ResoniteLink
     [JsonDerivedType(typeof(SyncObjectMemberDefinition), "syncObject")]
     [JsonDerivedType(typeof(EmptyMemberDefinition), "empty")]
     [JsonDerivedType(typeof(SyncPlaybackDefinition), "playback")]
-    [JsonDerivedType(typeof(SyncMethodDefinition), "method")]
     public abstract class MemberDefinition
     {
         /// <summary>

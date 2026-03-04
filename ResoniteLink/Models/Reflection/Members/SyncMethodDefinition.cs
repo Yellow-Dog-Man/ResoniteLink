@@ -5,8 +5,15 @@ using System.Text.Json.Serialization;
 
 namespace ResoniteLink
 {
-    public class SyncMethodDefinition : MemberDefinition
+    public class SyncMethodDefinition
     {
+        /// <summary>
+        /// Name of the sync method. Note that there can be multiple methods with the same name on an object.
+        /// Different methods can be uniquely distiguished by their parameters (number of parameters & their types)
+        /// </summary>
+        [JsonPropertyName("name")]
+        public string Name { get; set; }
+
         /// <summary>
         /// Definition of parameters of this method. If empty, the method has none.
         /// </summary>
