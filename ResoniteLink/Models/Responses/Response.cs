@@ -17,6 +17,8 @@ namespace ResoniteLink
     [JsonDerivedType(typeof(AssetData), "assetData")]
     [JsonDerivedType(typeof(SessionData), "sessionData")]
 
+    [JsonDerivedType(typeof(MethodResult), "methodResult")]
+
     [JsonDerivedType(typeof(TypeDefinitionData), "typeDefinitionData")]
     [JsonDerivedType(typeof(EnumDefinitionData), "enumDefinitionData")]
     [JsonDerivedType(typeof(ComponentDefinitionData), "componentDefinitionData")]
