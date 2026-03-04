@@ -207,6 +207,7 @@ namespace ResoniteLink
             SendMessage<GetEnumDefinition, EnumDefinitionData>(new GetEnumDefinition() { Type = typename });
 
         public Task<MethodResult> CallMethod(CallSyncMethod request) => SendMessage<CallSyncMethod, MethodResult>(request);
+        public Task<MethodResult> CallStaticMethod(CallStaticSyncMethod request) => SendMessage<CallStaticSyncMethod, MethodResult>(request);
 
         public Task<BatchResponse> RunDataModelOperationBatch(List<DataModelOperation> operations) =>
             SendMessage<DataModelOperationBatch, BatchResponse>(new DataModelOperationBatch()

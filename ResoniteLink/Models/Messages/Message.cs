@@ -45,6 +45,7 @@ namespace ResoniteLink
     [JsonDerivedType(typeof(GetComponentTypeList), "getComponentTypeList")]
 
     [JsonDerivedType(typeof(CallSyncMethod), "callSyncMethod")]
+    [JsonDerivedType(typeof(CallStaticSyncMethod), "callStaticSyncMethod")]
     public abstract class Message
     {
         /// <summary>

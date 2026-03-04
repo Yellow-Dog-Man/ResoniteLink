@@ -29,6 +29,14 @@ namespace ResoniteLink
         public TypeReference ReturnType { get; set; }
 
         /// <summary>
+        /// Indicates if this sync method is static. Static methods are not called on an object.
+        /// However calling static method is still done within context of a particular world - any references to objects
+        /// must be within the same world.
+        /// </summary>
+        [JsonPropertyName("isStatic")]
+        public bool IsStatic { get; set; }
+
+        /// <summary>
         /// Indicates if this method is sync or async.
         /// This doesn't make difference in how you call those methods through ResoniteLink, however it does make a difference
         /// in how they can repspond - sync methods will be called and respond typically as soon as possible and in sequence you called them.
