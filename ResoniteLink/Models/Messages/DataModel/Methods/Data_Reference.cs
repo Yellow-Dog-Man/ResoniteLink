@@ -5,7 +5,7 @@ using System.Text.Json.Serialization;
 
 namespace ResoniteLink
 {
-    public class Data_Reference
+    public class Data_Reference : Data
     {
         [JsonPropertyName("targetID")]
         public string TargetID { get; set; }
