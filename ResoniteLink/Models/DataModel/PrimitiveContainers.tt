@@ -135,10 +135,16 @@ namespace ResoniteLink
         [JsonDerivedType(typeof(SyncDictionary_<#=type#>), "dictionary<<#=type#>>")]
         public partial class Member { }
 
-        public class Data_<#=type#> : Data
+        public class Data_<#=type#> : DataValue
         {
             [JsonPropertyName("value")]
             public <#=type#> Value { get; set; }
+
+            [JsonIgnore]
+            public override object BoxedValue { get => Value; set => Value = (<#=type#>)value; }
+
+            [JsonIgnore]
+            public override Type ValueType => typeof(<#=type#>);
         }
 
         [JsonDerivedType(typeof(Data_<#=type#>), "<#=type#>")]
@@ -163,10 +169,16 @@ namespace ResoniteLink
             [JsonDerivedType(typeof(Field_Nullable_<#=type#>), "<#=type#>?")]
             public partial class Member { }
 
-            public class Data_Nullable_<#=type#> : Data
+            public class Data_Nullable_<#=type#> : DataValue
             {
                 [JsonPropertyName("value")]
                 public <#=type#>? Value { get; set; }
+
+                [JsonIgnore]
+                public override object BoxedValue { get => Value; set => Value = (<#=type#>)value; }
+
+                [JsonIgnore]
+                public override Type ValueType => typeof(<#=type#>);
             }
 
             [JsonDerivedType(typeof(Data_Nullable_<#=type#>), "<#=type#>?")]
