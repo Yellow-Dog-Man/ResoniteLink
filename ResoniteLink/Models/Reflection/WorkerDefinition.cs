@@ -20,5 +20,11 @@ namespace ResoniteLink
         /// </summary>
         [JsonPropertyName("members")]
         public Dictionary<string, MemberDefinition> Members { get; set; }
+
+        /// <summary>
+        /// List of all supported sync methods on their container
+        /// </summary>
+        [JsonPropertyName("methods")]
+        public List<SyncMethodDefinition> Methods { get; set; }
     }
 }
