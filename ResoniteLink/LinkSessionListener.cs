@@ -130,10 +130,9 @@ namespace ResoniteLink
                     {
                         // This indicates that the session is closed, remove it
                         if(_sessions.Remove(sessionInfo.SessionId))
-                        {
                             SessionClosed?.Invoke(sessionInfo);
-                            return;
-                        }
+
+                        return;
                     }
 
                     if(_sessions.TryGetValue(sessionInfo.SessionId, out var existingInfo))
