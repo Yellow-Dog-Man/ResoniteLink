@@ -123,7 +123,10 @@ namespace ResoniteLink
 
                 lock(_sessions)
                 {
-                    if(sessionInfo.LinkPort < 0)
+                    sessionInfo.LastUpdateTimestamp = DateTime.UtcNow;
+                    sessionInfo.LinkEndPoint = endpoint;
+
+                    if (sessionInfo.LinkPort < 0)
                     {
                         // This indicates that the session is closed, remove it
                         if(_sessions.Remove(sessionInfo.SessionId))
