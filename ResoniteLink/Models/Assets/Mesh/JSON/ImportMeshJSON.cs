@@ -39,6 +39,6 @@ namespace ResoniteLink
         /// These allow modifying the vertex positions, normals & tangents for animations such as facial expressions.
         /// </summary>
         [JsonPropertyName("blendshapes")]
-        public List<BlendShape> BlendShapes { get; set; }
+        public List<Blendshape> Blendshapes { get; set; }
     }
 }
