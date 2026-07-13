@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Net.WebSockets;
 using System.Threading.Tasks;
 using System.Collections.Concurrent;
@@ -23,24 +22,37 @@ namespace ResoniteLink
 
         const int DEFAULT_BUFFER_SIZE = 1024 * 1024 * 2; // 2 MB
 
-        public bool IsConnected => _client?.State == WebSocketState.Open;
+        public bool IsConnected => _socket?.State == WebSocketState.Open;
         public Exception FailureException { get; private set; }
 
-        ClientWebSocket _client;
+        WebSocket _socket;
         CancellationTokenSource cancellation;
 
         ConcurrentDictionary<string, TaskCompletionSource<Response>> _pendingResponses = new ConcurrentDictionary<string, TaskCompletionSource<Response>>();
 
-        public async Task Connect(Uri target, System.Threading.CancellationToken cancellationToken)
+        public async Task Connect(Uri target, CancellationToken cancellationToken = default)
         {
-            if(_client != null)
+            if (_socket != null)
                 throw new InvalidOperationException("Client has already been initialized.");
 
-            _client = new ClientWebSocket();
+            var client = new ClientWebSocket();
+            _socket = client;
 
             cancellation = CancellationTokenSource.CreateLinkedTokenSource(cancellationToken);
 
-            await _client.ConnectAsync(target, cancellation.Token);
+            await client.ConnectAsync(target, cancellation.Token);
+
+            _ = Task.Run(async () => ReceiverHandler(cancellation.Token));
+        }
+
+        public void WrapSocket(WebSocket socket, CancellationToken cancellationToken = default)
+        {
+            if (_socket != null)
+                throw new InvalidOperationException("Client has already been initialized.");
+
+            _socket = socket;
+
+            cancellation = CancellationTokenSource.CreateLinkedTokenSource(cancellationToken);
 
             _ = Task.Run(async () => ReceiverHandler(cancellation.Token));
         }
@@ -65,7 +77,7 @@ namespace ResoniteLink
                         buffer = newBuffer;
                     }
 
-                    var message = await _client.ReceiveAsync(new ArraySegment<byte>(buffer, receivedBytes, buffer.Length - receivedBytes), cancellationToken);
+                    var message = await _socket.ReceiveAsync(new ArraySegment<byte>(buffer, receivedBytes, buffer.Length - receivedBytes), cancellationToken);
 
                     receivedBytes += message.Count;
 
@@ -103,15 +115,15 @@ namespace ResoniteLink
 
             try
             {
-                if (_client.State == WebSocketState.Open)
-                    await _client.CloseAsync(FailureException == null ?
+                if (_socket.State == WebSocketState.Open)
+                    await _socket.CloseAsync(FailureException == null ?
                         WebSocketCloseStatus.NormalClosure :
                         WebSocketCloseStatus.InternalServerError,
                         FailureException == null ? "Closing" : "Internal Error", cancellation.Token);
             }
             finally
             {
-                _client.Dispose();
+                _socket.Dispose();
             }
         }
 
@@ -131,13 +143,13 @@ namespace ResoniteLink
 
             var jsonData = System.Text.Json.JsonSerializer.SerializeToUtf8Bytes((Message)message, SerializationOptions);
 
-            await _client.SendAsync(new ArraySegment<byte>(jsonData), 
+            await _socket.SendAsync(new ArraySegment<byte>(jsonData), 
                 WebSocketMessageType.Text, true, cancellation.Token);
 
             if(message is BinaryPayloadMessage binaryPayload)
             {
                 // We must send the binary payload as well following the message
-                await _client.SendAsync(new ArraySegment<byte>(binaryPayload.RawBinaryPayload), WebSocketMessageType.Binary, true,
+                await _socket.SendAsync(new ArraySegment<byte>(binaryPayload.RawBinaryPayload), WebSocketMessageType.Binary, true,
                     cancellation.Token);
             }
 
