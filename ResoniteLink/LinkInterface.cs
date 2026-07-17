@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Net.WebSockets;
 using System.Threading.Tasks;
 using System.Collections.Concurrent;
@@ -23,24 +22,36 @@ namespace ResoniteLink
 
         const int DEFAULT_BUFFER_SIZE = 1024 * 1024 * 2; // 2 MB
 
-        public bool IsConnected => _client?.State == WebSocketState.Open;
+        public bool IsConnected => _socket?.State == WebSocketState.Open;
         public Exception FailureException { get; private set; }
 
-        ClientWebSocket _client;
+        WebSocket _socket;
         CancellationTokenSource cancellation;
 
         ConcurrentDictionary<string, TaskCompletionSource<Response>> _pendingResponses = new ConcurrentDictionary<string, TaskCompletionSource<Response>>();
 
-        public async Task Connect(Uri target, System.Threading.CancellationToken cancellationToken)
+        public async Task Connect(Uri target, CancellationToken cancellationToken = default)
         {
-            if(_client != null)
+            if (_socket != null)
                 throw new InvalidOperationException("Client has already been initialized.");
 
-            _client = new ClientWebSocket();
+            var client = new ClientWebSocket();
+            await client.ConnectAsync(target, cancellationToken);
 
+            WrapSocket(client, cancellationToken);
+        }
+
+        /// <remarks>
+        /// The <paramref name="socket" /> must be unused and must only be interacted
+        /// with indirectly through this interface. Destruction is handled by this inteface.
+        /// </remarks>
+        public void WrapSocket(WebSocket socket, CancellationToken cancellationToken = default)
+        {
+            if (_socket != null)
+                throw new InvalidOperationException("Client has already been initialized.");
+
+            _socket = socket;
             cancellation = CancellationTokenSource.CreateLinkedTokenSource(cancellationToken);
-
-            await _client.ConnectAsync(target, cancellation.Token);
 
             _ = Task.Run(async () => ReceiverHandler(cancellation.Token));
         }
@@ -55,7 +66,7 @@ namespace ResoniteLink
 
                 while (!cancellationToken.IsCancellationRequested)
                 {
-                    if(receivedBytes == buffer.Length)
+                    if (receivedBytes == buffer.Length)
                     {
                         // We need bigger buffer!
                         var newBuffer = new byte[buffer.Length * 2];
@@ -65,14 +76,14 @@ namespace ResoniteLink
                         buffer = newBuffer;
                     }
 
-                    var message = await _client.ReceiveAsync(new ArraySegment<byte>(buffer, receivedBytes, buffer.Length - receivedBytes), cancellationToken);
+                    var message = await _socket.ReceiveAsync(new ArraySegment<byte>(buffer, receivedBytes, buffer.Length - receivedBytes), cancellationToken);
 
                     receivedBytes += message.Count;
 
                     if (!message.EndOfMessage)
                         continue;
 
-                    switch(message.MessageType)
+                    switch (message.MessageType)
                     {
                         case WebSocketMessageType.Text:
                             var response = System.Text.Json.JsonSerializer.Deserialize<Response>(
@@ -83,7 +94,7 @@ namespace ResoniteLink
                             else
                                 throw new Exception("There is no pending response with this ID");
 
-                                break;
+                            break;
 
                         case WebSocketMessageType.Binary:
                             throw new NotSupportedException("Binary messages aren't currently supported");
@@ -96,26 +107,26 @@ namespace ResoniteLink
                     receivedBytes = 0;
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 FailureException = ex;
             }
 
             try
             {
-                if (_client.State == WebSocketState.Open)
-                    await _client.CloseAsync(FailureException == null ?
+                if (_socket.State == WebSocketState.Open)
+                    await _socket.CloseAsync(FailureException == null ?
                         WebSocketCloseStatus.NormalClosure :
                         WebSocketCloseStatus.InternalServerError,
                         FailureException == null ? "Closing" : "Internal Error", cancellation.Token);
             }
             finally
             {
-                _client.Dispose();
+                _socket.Dispose();
             }
         }
 
-        async Task<O> SendMessage<I,O>(I message)
+        async Task<O> SendMessage<I, O>(I message)
             where I : Message
             where O : Response
         {
@@ -131,13 +142,13 @@ namespace ResoniteLink
 
             var jsonData = System.Text.Json.JsonSerializer.SerializeToUtf8Bytes((Message)message, SerializationOptions);
 
-            await _client.SendAsync(new ArraySegment<byte>(jsonData), 
+            await _socket.SendAsync(new ArraySegment<byte>(jsonData),
                 WebSocketMessageType.Text, true, cancellation.Token);
 
-            if(message is BinaryPayloadMessage binaryPayload)
+            if (message is BinaryPayloadMessage binaryPayload)
             {
                 // We must send the binary payload as well following the message
-                await _client.SendAsync(new ArraySegment<byte>(binaryPayload.RawBinaryPayload), WebSocketMessageType.Binary, true,
+                await _socket.SendAsync(new ArraySegment<byte>(binaryPayload.RawBinaryPayload), WebSocketMessageType.Binary, true,
                     cancellation.Token);
             }
 
@@ -196,7 +207,7 @@ namespace ResoniteLink
         public Task<SyncObjectDefinitionData> GetSyncObjectDefinition(string type, bool flattened) => SendMessage<GetSyncObjectDefinition, SyncObjectDefinitionData>(
             new GetSyncObjectDefinition() { SyncObjectType = type, Flattened = flattened });
         public Task<TypeDefinitionData> GetTypeDefinition(GetTypeDefinition request) => SendMessage<GetTypeDefinition, TypeDefinitionData>(request);
-        public Task<TypeDefinitionData> GetTypeDefinition(string typename) => 
+        public Task<TypeDefinitionData> GetTypeDefinition(string typename) =>
             SendMessage<GetTypeDefinition, TypeDefinitionData>(new GetTypeDefinition() { Type = typename });
         public Task<TypeDefinitionData> GetGenericTypeDefinition(GetGenericTypeDefinition request) => SendMessage<GetGenericTypeDefinition, TypeDefinitionData>(request);
         public Task<TypeDefinitionData> GetGenericTypeDefinition(string typename) =>
