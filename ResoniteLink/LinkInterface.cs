@@ -41,6 +41,10 @@ namespace ResoniteLink
             WrapSocket(client, cancellationToken);
         }
 
+        /// <remarks>
+        /// The <paramref name="socket" /> must be unused and must only be interacted
+        /// with indirectly through this interface. Destruction is handled by this inteface.
+        /// </remarks>
         public void WrapSocket(WebSocket socket, CancellationToken cancellationToken = default)
         {
             if (_socket != null)
