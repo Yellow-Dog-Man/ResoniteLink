@@ -36,13 +36,9 @@ namespace ResoniteLink
                 throw new InvalidOperationException("Client has already been initialized.");
 
             var client = new ClientWebSocket();
-            _socket = client;
+            await client.ConnectAsync(target, cancellationToken);
 
-            cancellation = CancellationTokenSource.CreateLinkedTokenSource(cancellationToken);
-
-            await client.ConnectAsync(target, cancellation.Token);
-
-            _ = Task.Run(async () => ReceiverHandler(cancellation.Token));
+            WrapSocket(client, cancellationToken);
         }
 
         public void WrapSocket(WebSocket socket, CancellationToken cancellationToken = default)
@@ -51,7 +47,6 @@ namespace ResoniteLink
                 throw new InvalidOperationException("Client has already been initialized.");
 
             _socket = socket;
-
             cancellation = CancellationTokenSource.CreateLinkedTokenSource(cancellationToken);
 
             _ = Task.Run(async () => ReceiverHandler(cancellation.Token));
@@ -67,7 +62,7 @@ namespace ResoniteLink
 
                 while (!cancellationToken.IsCancellationRequested)
                 {
-                    if(receivedBytes == buffer.Length)
+                    if (receivedBytes == buffer.Length)
                     {
                         // We need bigger buffer!
                         var newBuffer = new byte[buffer.Length * 2];
@@ -84,7 +79,7 @@ namespace ResoniteLink
                     if (!message.EndOfMessage)
                         continue;
 
-                    switch(message.MessageType)
+                    switch (message.MessageType)
                     {
                         case WebSocketMessageType.Text:
                             var response = System.Text.Json.JsonSerializer.Deserialize<Response>(
@@ -95,7 +90,7 @@ namespace ResoniteLink
                             else
                                 throw new Exception("There is no pending response with this ID");
 
-                                break;
+                            break;
 
                         case WebSocketMessageType.Binary:
                             throw new NotSupportedException("Binary messages aren't currently supported");
@@ -108,7 +103,7 @@ namespace ResoniteLink
                     receivedBytes = 0;
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 FailureException = ex;
             }
@@ -127,7 +122,7 @@ namespace ResoniteLink
             }
         }
 
-        async Task<O> SendMessage<I,O>(I message)
+        async Task<O> SendMessage<I, O>(I message)
             where I : Message
             where O : Response
         {
@@ -143,10 +138,10 @@ namespace ResoniteLink
 
             var jsonData = System.Text.Json.JsonSerializer.SerializeToUtf8Bytes((Message)message, SerializationOptions);
 
-            await _socket.SendAsync(new ArraySegment<byte>(jsonData), 
+            await _socket.SendAsync(new ArraySegment<byte>(jsonData),
                 WebSocketMessageType.Text, true, cancellation.Token);
 
-            if(message is BinaryPayloadMessage binaryPayload)
+            if (message is BinaryPayloadMessage binaryPayload)
             {
                 // We must send the binary payload as well following the message
                 await _socket.SendAsync(new ArraySegment<byte>(binaryPayload.RawBinaryPayload), WebSocketMessageType.Binary, true,
@@ -208,7 +203,7 @@ namespace ResoniteLink
         public Task<SyncObjectDefinitionData> GetSyncObjectDefinition(string type, bool flattened) => SendMessage<GetSyncObjectDefinition, SyncObjectDefinitionData>(
             new GetSyncObjectDefinition() { SyncObjectType = type, Flattened = flattened });
         public Task<TypeDefinitionData> GetTypeDefinition(GetTypeDefinition request) => SendMessage<GetTypeDefinition, TypeDefinitionData>(request);
-        public Task<TypeDefinitionData> GetTypeDefinition(string typename) => 
+        public Task<TypeDefinitionData> GetTypeDefinition(string typename) =>
             SendMessage<GetTypeDefinition, TypeDefinitionData>(new GetTypeDefinition() { Type = typename });
         public Task<TypeDefinitionData> GetGenericTypeDefinition(GetGenericTypeDefinition request) => SendMessage<GetGenericTypeDefinition, TypeDefinitionData>(request);
         public Task<TypeDefinitionData> GetGenericTypeDefinition(string typename) =>
