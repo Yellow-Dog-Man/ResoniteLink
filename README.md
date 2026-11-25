@@ -39,10 +39,11 @@ There are a few community projects built around or with ResoniteLink:
 
 ## C#  <img alt="C# programming language logo. C and # characters on a bright background." src="https://skillicons.dev/icons?i=cs" width="16">
 
-| Repository                                                                      | Description                                                                                       |
-|---------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------|
-| [ssmucny/ResoniteLink.RPath](https://github.com/ssmucny/ResoniteLink.RPath)     | API to perform more complex queries on ResoniteLink, similar to LINQ, but not quite the same.     |
-| [Earthmark/Rfmk.Resolink.Grpc](https://github.com/Earthmark/Rfmk.Resolink.Grpc) | A gRPC proxy for ResoniteLink, exposing ResoniteLink with a strongly-typed GRPC and protobuf API. |
+| Repository                                                                      | Description                                                                                                                                             |
+|---------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------|
+| [ssmucny/ResoniteLink.RPath](https://github.com/ssmucny/ResoniteLink.RPath)     | API to perform more complex queries on ResoniteLink, similar to LINQ, but not quite the same.                                                           |
+| [ssmucny/Flux-SDK](https://git.samsmucny.com/ssmucny/Flux-SDK)                  | Tools for creating, uploading, and modifying ProtoFlux using ProtoGraph. [Docs](https://flux-sdk.samsmucny.com/Other/ResoniteLink-Getting-Started.html) |
+| [Earthmark/Rfmk.Resolink.Grpc](https://github.com/Earthmark/Rfmk.Resolink.Grpc) | A gRPC proxy for ResoniteLink, exposing ResoniteLink with a strongly-typed GRPC and protobuf API.                                                       |
 
 ## JavaScript  <img alt="JavaScript programming language logo. JS letters on a bright coloured background." src="https://skillicons.dev/icons?i=js" width="16">
 
